@@ -1,0 +1,47 @@
+<resources>
+    <string name="app_name">BandAide</string>
+
+
+    <string name="btn_clear">Clear</string>
+    <string name="btn_song_activity">Songs</string>
+    <string name="btn_venue">Venues</string>
+    <string name="btn_people">People</string>
+    <string name="btn_setlists">Setlists</string>
+    <string name="btn_gigs">Gigs</string>
+    <string name="btn_add">Add</string>
+    <string name="btn_main_menu">Main Menu</string>
+    <string name="btn_submit">Submit</string>
+    <string name="btn_delete">Delete</string>
+    <string name="btn_edit">Edit</string>
+
+
+    <string name="txt_songname">Song Name</string>
+    <string name="txt_artist">Artist</string>
+    <string name="txt_tempo">Tempo</string>
+    <string name="txt_genre">Genre</string>
+    <string name="txt_year">Year</string>
+    <string name="txt_notes">Notes</string>
+    <string name="txt_length">Length</string>
+    <string name="txt_timeSignature">Time Sig</string>
+    <string name="txt_key">Key</string>
+    <string name="txt_venue_name">Name</string>
+    <string name="txt_venue_address">Address</string>
+    <string name="txt_venue_city">City</string>
+    <string name="txt_venue_state">State</string>
+    <string name="txt_venue_zip">Zipcode</string>
+    <string name="txt_people_firstName">First Name</string>
+    <string name="txt_people_lastName">Last Name</string>
+    <string name="txt_people_title">Title</string>
+    <string name="txt_people_phone">Phone</string>
+    <string name="txt_people_email">Email</string>
+    <string name="txt_gigs_venue">Venue</string>
+    <string name="txt_gigs_date">Date</string>
+    <string name="txt_gigs_time">Time</string>
+    <string name="txt_gigs_pay">Pay</string>
+
+
+
+    <string name="title_activity_song__activity_">Song_Activity_</string>
+    <string name="title_activity_song_view">song_view</string>
+
+</resources>
