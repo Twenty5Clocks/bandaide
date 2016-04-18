@@ -36,10 +36,10 @@ public class people_edit extends AppCompatActivity {
 
     public void onClick_button_submit(View v){
         TextView et_edit_peopleFirstName = (TextView) findViewById(R.id.et_edit_peopleFirstName);
-        EditText et_edit_peopleLastName = (EditText) findViewById(R.id.et_add_peopleLastName);
-        EditText et_edit_peopleTitle = (EditText) findViewById(R.id.et_add_peopleTitle);
-        EditText et_edit_peoplePhone = (EditText) findViewById(R.id.et_add_peoplePhone);
-        EditText et_edit_peopleEmail = (EditText) findViewById(R.id.et_add_peopleEmail);
+        EditText et_edit_peopleLastName = (EditText) findViewById(R.id.et_edit_peopleLastName);
+        EditText et_edit_peopleTitle = (EditText) findViewById(R.id.et_edit_peopleTitle);
+        EditText et_edit_peoplePhone = (EditText) findViewById(R.id.et_edit_peoplePhone);
+        EditText et_edit_peopleEmail = (EditText) findViewById(R.id.et_edit_peopleEmail);
         String peopleEditFirstName = et_edit_peopleFirstName.getText().toString();
         String peopleEditLastName = et_edit_peopleLastName.getText().toString();
         String peopleEditTitle = et_edit_peopleTitle.getText().toString();
@@ -66,10 +66,10 @@ public class people_edit extends AppCompatActivity {
         startManagingCursor(cursor);
 
         TextView peopleFirstName = (TextView) findViewById(R.id.et_edit_peopleFirstName); peopleFirstName.setText(cursor.getString(2), TextView.BufferType.EDITABLE);
-        EditText peopleLastName = (EditText) findViewById(R.id.et_add_peopleLastName); peopleLastName.setText(cursor.getString(3), TextView.BufferType.EDITABLE);
-        EditText peopleTitle = (EditText) findViewById(R.id.et_add_peopleTitle); peopleTitle.setText(cursor.getString(4), TextView.BufferType.EDITABLE);
-        EditText peoplePhone = (EditText) findViewById(R.id.et_add_peoplePhone); peoplePhone.setText(cursor.getString(5), TextView.BufferType.EDITABLE);
-        EditText peopleEmail = (EditText) findViewById(R.id.et_add_peopleEmail); peopleEmail.setText(cursor.getString(6), TextView.BufferType.EDITABLE);
+        EditText peopleLastName = (EditText) findViewById(R.id.et_edit_peopleLastName); peopleLastName.setText(cursor.getString(3), TextView.BufferType.EDITABLE);
+        EditText peopleTitle = (EditText) findViewById(R.id.et_edit_peopleTitle); peopleTitle.setText(cursor.getString(4), TextView.BufferType.EDITABLE);
+        EditText peoplePhone = (EditText) findViewById(R.id.et_edit_peoplePhone); peoplePhone.setText(cursor.getString(5), TextView.BufferType.EDITABLE);
+        EditText peopleEmail = (EditText) findViewById(R.id.et_edit_peopleEmail); peopleEmail.setText(cursor.getString(6), TextView.BufferType.EDITABLE);
 
 
 

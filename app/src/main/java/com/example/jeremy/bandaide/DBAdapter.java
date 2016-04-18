@@ -19,7 +19,7 @@ public class DBAdapter {
     /////////////////////////////////////////////////////////////////////
     // For logging:
     private static final String TAG = "DBAdapter";
-    public static final int DATABASE_VERSION = 13 ;
+    public static final int DATABASE_VERSION = 14 ;
 
 
     public static final String KEY_SONG_ID = "_id";
@@ -238,7 +238,7 @@ public class DBAdapter {
         Cursor cursor = db.rawQuery("SELECT " + KEY_VENUE_ID + " FROM " + DATABASE_TABLE_VENUE + " WHERE " + KEY_VENUE_NAME + "= " + "\"" +  venue + "\";", null);
         int venue_id;
         if (cursor.moveToFirst()) {
-            venue_id = Integer.parseInt(String.valueOf(cursor.getColumnIndex(KEY_VENUE_ID)));
+            venue_id = cursor.getInt(0);
         }else {
             venue_id = 0;
         }
@@ -249,7 +249,6 @@ public class DBAdapter {
     }
     public String getVenueName_VenueID(int venueID){
         Cursor cursor = db.rawQuery("SELECT " + KEY_VENUE_NAME + " FROM " + DATABASE_TABLE_VENUE + " WHERE " + KEY_VENUE_ID + "= " + venueID + ";", null);
-        //String venue_name = "whats up";
         Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
         String venue_name;
         if (cursor.moveToFirst()) {
@@ -277,10 +276,12 @@ public class DBAdapter {
     }
     public boolean deleteRow_people(String name) {
         String where = KEY_PERSON_FIRSTNAME + "= \""  + name + "\"";
+        Log.v(TAG, "Deleting row: " + where);
         return db.delete(DATABASE_TABLE_PERSON, where, null) != 0;
     }
     public boolean deleteRow_gigs(int id) {
-        String where = KEY_GIG_VENUE_ID + " = "  + id;
+        String where = KEY_GIG_ID + "= "  + id;
+        Log.v(TAG, "Deleting row: " + where);
         return db.delete(DATABASE_TABLE_GIG, where, null) != 0;
     }
 
@@ -307,8 +308,8 @@ public class DBAdapter {
     }
     public Cursor getAllRows_venue() {
         String where = null;
-        Cursor c =   db.query(true, DATABASE_TABLE_VENUE, ALL_VENUE_KEYS ,
-                null, null, null, null , null, null);
+        Cursor c =   db.query(true, DATABASE_TABLE_VENUE, ALL_VENUE_KEYS,
+                null, null, null, null, null, null);
         if (c != null) {
             c.moveToFirst();
         }
@@ -326,6 +327,15 @@ public class DBAdapter {
     public Cursor getAllRows_gigs() {
         String where = null;
         Cursor c =   db.query(true, DATABASE_TABLE_GIG, ALL_GIG_KEYS ,
+                null, null, null, null , null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+    public Cursor getAllRows_setlists() {
+        String where = null;
+        Cursor c =   db.query(true, DATABASE_TABLE_SETLIST, ALL_SETLIST_KEYS ,
                 null, null, null, null , null, null);
         if (c != null) {
             c.moveToFirst();
@@ -416,6 +426,20 @@ public class DBAdapter {
 
         // Insert it into the database.
         return db.update(DATABASE_TABLE_PERSON, newValues, where, null) != 0 ;
+    }
+    //ToDo edit updateRow_gigs to allow for ID
+    public boolean updateRow_gigs(int gigID,String venue, String date, String time, int pay) {
+        String where = KEY_GIG_ID + "= "  + gigID;
+        int venueInt = this.getVenueID_VenueName(venue);
+
+        ContentValues newValues = new ContentValues();
+        newValues.put(KEY_GIG_VENUE_ID, venueInt);
+        newValues.put(KEY_GIG_DATE, date);
+        newValues.put(KEY_GIG_TIME, time);
+        newValues.put(KEY_GIG_PAY, pay);
+
+        // Insert it into the database.
+        return db.update(DATABASE_TABLE_GIG, newValues, where, null) != 0 ;
     }
 
 

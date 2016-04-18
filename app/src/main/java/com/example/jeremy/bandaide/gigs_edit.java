@@ -4,20 +4,22 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 public class gigs_edit extends AppCompatActivity {
+    private static final String TAG = "gigs_edit";
     DBAdapter songDB;
-    String selSong;
+    int selGigs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_song_edit);
+        setContentView(R.layout.activity_gigs_edit);
         Bundle extras = getIntent().getExtras();
         if(extras != null){
-            selSong = extras.getString("selSong");
+            selGigs = extras.getInt("selGigs");
         }
         openDB();
 
@@ -34,27 +36,20 @@ public class gigs_edit extends AppCompatActivity {
     }
 
     public void onClick_button_submit(View v){
-        TextView et_edit_songName = (TextView) findViewById(R.id.et_edit_peopleFirstName);
-        EditText et_edit_artist = (EditText) findViewById(R.id.et_add_peopleLastName);
-        EditText et_edit_tempo = (EditText) findViewById(R.id.et_add_peopleTitle);
-        EditText et_edit_genre = (EditText) findViewById(R.id.et_add_peoplePhone);
-        EditText et_edit_year = (EditText) findViewById(R.id.et_add_peopleEmail);
-        EditText et_edit_notes = (EditText) findViewById(R.id.et_edit_notes);
-        EditText et_edit_length = (EditText) findViewById(R.id.et_edit_length);
-        EditText et_edit_timeSig = (EditText) findViewById(R.id.et_edit_timeSig);
-        EditText et_edit_key = (EditText) findViewById(R.id.et_edit_key);
-        String songNameString = et_edit_songName.getText().toString();
-        String artistString = et_edit_artist.getText().toString();
-        int tempoInt = Integer.parseInt(et_edit_tempo.getText().toString());
-        String genreString = et_edit_genre.getText().toString();
-        int yearInt = Integer.parseInt(et_edit_year.getText().toString());
-        String notesString = et_edit_notes.getText().toString();
-        String lengthString = et_edit_length.getText().toString();
-        String timeSigString = et_edit_timeSig.getText().toString();
-        String keyString = et_edit_key.getText().toString();
-        songDB.updateRow_song(songNameString, artistString, tempoInt, genreString, yearInt, notesString, lengthString, timeSigString, keyString);
+        TextView et_edit_venue = (TextView) findViewById(R.id.et_gigs_edit_venue);
+        EditText et_edit_date = (EditText) findViewById(R.id.et_gigs_edit_date);
+        EditText et_edit_time = (EditText) findViewById(R.id.et_gigs_edit_time);
+        EditText et_edit_pay = (EditText) findViewById(R.id.et_gigs_edit_pay);
+        String venueNameString = et_edit_venue.getText().toString();
+
+        String dateString = et_edit_date.getText().toString();
+        String timeString = et_edit_time.getText().toString();
+        int payInt = Integer.parseInt(et_edit_pay.getText().toString());
+        Log.v(TAG, "gig update submitted:SelGigs:" + selGigs + "  name:" + venueNameString + " date:" + dateString + " time:" + timeString + " pay:" + payInt);
+        //ToDo edit updateRow_gigs to allow for ID
+        songDB.updateRow_gigs(selGigs, venueNameString, dateString, timeString, payInt);
         //String title, String artist, int tempo, String genre, int year, String notes, String length, String timeSignature, String key
-        Intent intent = new Intent(this, song.class);
+        Intent intent = new Intent(this, gigs.class);
         startActivity(intent);
     }
     private void openDB()
@@ -68,18 +63,16 @@ public class gigs_edit extends AppCompatActivity {
         songDB.close();
     }
     public void populateFieldsFromDB(){
-        Cursor cursor = songDB.getRow_song(selSong);
+        Cursor cursor = songDB.getRow_gigs(selGigs);
         startManagingCursor(cursor);
 
-        TextView songTitle = (TextView) findViewById(R.id.et_edit_peopleFirstName); songTitle.setText(cursor.getString(1), TextView.BufferType.EDITABLE);
-        EditText songArtist = (EditText) findViewById(R.id.et_add_peopleLastName); songArtist.setText(cursor.getString(2), TextView.BufferType.EDITABLE);
-        EditText songTempo = (EditText) findViewById(R.id.et_add_peopleTitle); songTempo.setText(cursor.getString(3), TextView.BufferType.EDITABLE);
-        EditText songGenre = (EditText) findViewById(R.id.et_add_peoplePhone); songGenre.setText(cursor.getString(4), TextView.BufferType.EDITABLE);
-        EditText songYear = (EditText) findViewById(R.id.et_add_peopleEmail); songYear.setText(cursor.getString(5), TextView.BufferType.EDITABLE);
-        EditText songNotes = (EditText) findViewById(R.id.et_edit_notes); songNotes.setText(cursor.getString(6), TextView.BufferType.EDITABLE);
-        EditText songLength = (EditText) findViewById(R.id.et_edit_length); songLength.setText(cursor.getString(7), TextView.BufferType.EDITABLE);
-        EditText songTimeSig = (EditText) findViewById(R.id.et_edit_timeSig); songTimeSig.setText(cursor.getString(8), TextView.BufferType.EDITABLE);
-        EditText songKey = (EditText) findViewById(R.id.et_edit_key); songKey.setText(cursor.getString(9), TextView.BufferType.EDITABLE);
+        TextView gigVenue = (TextView) findViewById(R.id.et_gigs_edit_venue);
+        String venueName = songDB.getVenueName_VenueID(cursor.getInt(1));
+        gigVenue.setText(venueName);
+        EditText gigsDate = (EditText) findViewById(R.id.et_gigs_edit_date); gigsDate.setText(cursor.getString(2), TextView.BufferType.EDITABLE);
+        EditText gigsTime = (EditText) findViewById(R.id.et_gigs_edit_time); gigsTime.setText(cursor.getString(3), TextView.BufferType.EDITABLE);
+        EditText gigsPay = (EditText) findViewById(R.id.et_gigs_edit_pay); gigsPay.setText(cursor.getString(4), TextView.BufferType.EDITABLE);
+
 
 
 

@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_people_phone"
-        android:id="@+id/tv_people_view_email"
+        android:id="@+id/tv_people_view_phone"
         android:layout_below="@+id/tv_people_view_title"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
@@ -67,8 +67,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_people_email"
-        android:id="@+id/tv_venue_view_zip"
-        android:layout_below="@+id/tv_people_view_email"
+        android:id="@+id/tv_people_view_email"
+        android:layout_below="@+id/tv_people_view_phone"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
@@ -77,7 +77,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="FirstName"
-        android:id="@+id/tv_view_peopleFirstName"
+        android:id="@+id/tv_people_view_firstName_view"
         android:layout_alignTop="@+id/tv_people_view_firstName"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
@@ -87,8 +87,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="LastName"
-        android:id="@+id/tv_view_peopleLastName"
-        android:layout_below="@+id/tv_view_peopleFirstName"
+        android:id="@+id/tv_people_view_lastName_view"
+        android:layout_below="@+id/tv_people_view_firstName_view"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
 
@@ -97,8 +97,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Title"
-        android:id="@+id/tv_view_peopleTitle"
-        android:layout_below="@+id/tv_view_peopleLastName"
+        android:id="@+id/tv_people_view_title_view"
+        android:layout_below="@+id/tv_people_view_lastName_view"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
 
@@ -107,8 +107,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Phone"
-        android:id="@+id/tv_view_peoplePhone"
-        android:layout_below="@+id/tv_view_peopleTitle"
+        android:id="@+id/tv_people_view_phone_view"
+        android:layout_below="@+id/tv_people_view_title_view"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
 
@@ -117,8 +117,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Email"
-        android:id="@+id/tv_view_peopleEmail"
-        android:layout_below="@+id/tv_view_peoplePhone"
+        android:id="@+id/tv_people_view_email_view"
+        android:layout_below="@+id/tv_people_view_phone_view"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
 

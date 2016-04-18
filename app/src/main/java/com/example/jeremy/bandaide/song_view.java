@@ -35,7 +35,7 @@ public class song_view extends AppCompatActivity {
     }
     public void onClick_edit(View v)
     {
-        TextView name = (TextView)findViewById(R.id.tv_view_peopleFirstName);
+        TextView name = (TextView)findViewById(R.id.tv_song_view_title_view);
         String selected = name.getText().toString();
         Intent intent = new Intent(getApplicationContext(), song_edit.class);
         intent.putExtra("selSong" ,selected);
@@ -49,7 +49,7 @@ public class song_view extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
-                TextView songTitle = (TextView) findViewById(R.id.tv_view_peopleFirstName);
+                TextView songTitle = (TextView) findViewById(R.id.tv_song_view_title_view);
                 String name = songTitle.getText().toString();
                 songDB.deleteRow_song(name);
                 Intent intent = new Intent(getApplicationContext(), song.class);
@@ -80,15 +80,15 @@ public class song_view extends AppCompatActivity {
         Cursor cursor = songDB.getRow_song(selSong);
         startManagingCursor(cursor);
 
-        TextView songTitle = (TextView) findViewById(R.id.tv_view_peopleFirstName); songTitle.setText(cursor.getString(1));
-        TextView songArtist = (TextView) findViewById(R.id.tv_view_peopleLastName); songArtist.setText(cursor.getString(2));
-        TextView songTempo = (TextView) findViewById(R.id.tv_view_peopleTitle); songTempo.setText(cursor.getString(3));
-        TextView songGenre = (TextView) findViewById(R.id.tv_view_peoplePhone); songGenre.setText(cursor.getString(4));
-        TextView songYear = (TextView) findViewById(R.id.tv_view_peopleEmail); songYear.setText(cursor.getString(5));
-        TextView songNotes = (TextView) findViewById(R.id.tv_view_notes); songNotes.setText(cursor.getString(6));
-        TextView songLength = (TextView) findViewById(R.id.tv_view_length); songLength.setText(cursor.getString(7));
-        TextView songTimeSig = (TextView) findViewById(R.id.tv_view_timeSig); songTimeSig.setText(cursor.getString(8));
-        TextView songKey = (TextView) findViewById(R.id.tv_view_key); songKey.setText(cursor.getString(9));
+        TextView songTitle = (TextView) findViewById(R.id.tv_song_view_title_view); songTitle.setText(cursor.getString(1));
+        TextView songArtist = (TextView) findViewById(R.id.tv_song_view_artist_view); songArtist.setText(cursor.getString(2));
+        TextView songTempo = (TextView) findViewById(R.id.tv_song_view_tempo_view); songTempo.setText(cursor.getString(3));
+        TextView songGenre = (TextView) findViewById(R.id.tv_song_view_genre_view); songGenre.setText(cursor.getString(4));
+        TextView songYear = (TextView) findViewById(R.id.tv_song_view_year_view); songYear.setText(cursor.getString(5));
+        TextView songNotes = (TextView) findViewById(R.id.tv_song_view_notes_view); songNotes.setText(cursor.getString(6));
+        TextView songLength = (TextView) findViewById(R.id.tv_song_view_length_view); songLength.setText(cursor.getString(7));
+        TextView songTimeSig = (TextView) findViewById(R.id.tv_song_view_timeSig_view); songTimeSig.setText(cursor.getString(8));
+        TextView songKey = (TextView) findViewById(R.id.tv_song_view_key_view); songKey.setText(cursor.getString(9));
 
 
 

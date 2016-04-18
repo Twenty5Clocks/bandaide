@@ -20,6 +20,7 @@ public class gigs_add extends AppCompatActivity {
     DBAdapter songDB;
     public Context mContext;
     public String venueNameFromCursor;
+    public int selectedVenue = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +42,7 @@ public class gigs_add extends AppCompatActivity {
         spinVenue.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(mContext, "Selected ID=" + id, Toast.LENGTH_LONG).show();
+                selectedVenue = (int) id;
                 venueNameFromCursor = songDB.getVenueName_VenueID((int)id);
             }
 
@@ -57,10 +59,10 @@ public class gigs_add extends AppCompatActivity {
         closeDB();
     }
     public void onClick_button_submit(View v){
-        //Spinner sp_gigs_add_venue = (Spinner) findViewById(R.id.sp_gigs_add_venue);
-        String venueName = "Staples Center";
+        Spinner sp_gigs_add_venue = (Spinner) findViewById(R.id.sp_gigs_add_venue);
 
-        int venueID = songDB.getVenueID_VenueName(venueName);
+
+        int venueID = selectedVenue;
         //ToDo: Finish the spinner setup in gigs_add
         EditText et_gigs_add_date = (EditText) findViewById(R.id.et_gigs_add_date);
         EditText et_gigs_add_time = (EditText) findViewById(R.id.et_gigs_add_time);

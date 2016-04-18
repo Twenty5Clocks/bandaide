@@ -35,11 +35,11 @@ public class venue_edit extends AppCompatActivity {
     }
 
     public void onClick_button_submit(View v){
-        TextView et_edit_venueName = (TextView) findViewById(R.id.et_edit_peopleFirstName);
-        EditText et_edit_venueAddress = (EditText) findViewById(R.id.et_add_peopleLastName);
-        EditText et_edit_venueCity = (EditText) findViewById(R.id.et_add_peopleTitle);
-        EditText et_edit_venueState = (EditText) findViewById(R.id.et_add_peoplePhone);
-        EditText et_edit_venueZip = (EditText) findViewById(R.id.et_add_peopleEmail);
+        TextView et_edit_venueName = (TextView) findViewById(R.id.et_venue_edit_name);
+        EditText et_edit_venueAddress = (EditText) findViewById(R.id.et_venue_edit_address);
+        EditText et_edit_venueCity = (EditText) findViewById(R.id.et_venue_edit_city);
+        EditText et_edit_venueState = (EditText) findViewById(R.id.et_venue_edit_state);
+        EditText et_edit_venueZip = (EditText) findViewById(R.id.et_venue_edit_zip);
         String venueEditName = et_edit_venueName.getText().toString();
         String venueEditAddress = et_edit_venueAddress.getText().toString();
         String venueEditCity = et_edit_venueCity.getText().toString();
@@ -65,11 +65,11 @@ public class venue_edit extends AppCompatActivity {
         Cursor cursor = songDB.getRow_venue(selVenue);
         startManagingCursor(cursor);
 
-        TextView venueName = (TextView) findViewById(R.id.et_edit_peopleFirstName); venueName.setText(cursor.getString(1), TextView.BufferType.EDITABLE);
-        EditText venueAddress = (EditText) findViewById(R.id.et_add_peopleLastName); venueAddress.setText(cursor.getString(2), TextView.BufferType.EDITABLE);
-        EditText venueCity = (EditText) findViewById(R.id.et_add_peopleTitle); venueCity.setText(cursor.getString(3), TextView.BufferType.EDITABLE);
-        EditText venueState = (EditText) findViewById(R.id.et_add_peoplePhone); venueState.setText(cursor.getString(4), TextView.BufferType.EDITABLE);
-        EditText venueZip = (EditText) findViewById(R.id.et_add_peopleEmail); venueZip.setText(cursor.getString(5), TextView.BufferType.EDITABLE);
+        TextView venueName = (TextView) findViewById(R.id.et_venue_edit_name); venueName.setText(cursor.getString(1), TextView.BufferType.EDITABLE);
+        EditText venueAddress = (EditText) findViewById(R.id.et_venue_edit_address); venueAddress.setText(cursor.getString(2), TextView.BufferType.EDITABLE);
+        EditText venueCity = (EditText) findViewById(R.id.et_venue_edit_city); venueCity.setText(cursor.getString(3), TextView.BufferType.EDITABLE);
+        EditText venueState = (EditText) findViewById(R.id.et_venue_edit_state); venueState.setText(cursor.getString(4), TextView.BufferType.EDITABLE);
+        EditText venueZip = (EditText) findViewById(R.id.et_venue_edit_zip); venueZip.setText(cursor.getString(5), TextView.BufferType.EDITABLE);
 
 
 

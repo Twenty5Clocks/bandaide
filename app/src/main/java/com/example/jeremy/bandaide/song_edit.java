@@ -34,15 +34,15 @@ public class song_edit extends AppCompatActivity {
     }
 
     public void onClick_button_submit(View v){
-        TextView et_edit_songName = (TextView) findViewById(R.id.et_edit_peopleFirstName);
-        EditText et_edit_artist = (EditText) findViewById(R.id.et_add_peopleLastName);
-        EditText et_edit_tempo = (EditText) findViewById(R.id.et_add_peopleTitle);
-        EditText et_edit_genre = (EditText) findViewById(R.id.et_add_peoplePhone);
-        EditText et_edit_year = (EditText) findViewById(R.id.et_add_peopleEmail);
-        EditText et_edit_notes = (EditText) findViewById(R.id.et_edit_notes);
-        EditText et_edit_length = (EditText) findViewById(R.id.et_edit_length);
-        EditText et_edit_timeSig = (EditText) findViewById(R.id.et_edit_timeSig);
-        EditText et_edit_key = (EditText) findViewById(R.id.et_edit_key);
+        TextView et_edit_songName = (TextView) findViewById(R.id.et_song_edit_name);
+        EditText et_edit_artist = (EditText) findViewById(R.id.et_song_edit_artist);
+        EditText et_edit_tempo = (EditText) findViewById(R.id.et_song_edit_tempo);
+        EditText et_edit_genre = (EditText) findViewById(R.id.et_song_edit_genre);
+        EditText et_edit_year = (EditText) findViewById(R.id.et_song_edit_year);
+        EditText et_edit_notes = (EditText) findViewById(R.id.et_song_edit_notes);
+        EditText et_edit_length = (EditText) findViewById(R.id.et_song_edit_length);
+        EditText et_edit_timeSig = (EditText) findViewById(R.id.et_song_edit_timeSig);
+        EditText et_edit_key = (EditText) findViewById(R.id.et_song_edit_key);
         String songNameString = et_edit_songName.getText().toString();
         String artistString = et_edit_artist.getText().toString();
         int tempoInt = Integer.parseInt(et_edit_tempo.getText().toString());
@@ -71,15 +71,15 @@ public class song_edit extends AppCompatActivity {
         Cursor cursor = songDB.getRow_song(selSong);
         startManagingCursor(cursor);
 
-        TextView songTitle = (TextView) findViewById(R.id.et_edit_peopleFirstName); songTitle.setText(cursor.getString(1), TextView.BufferType.EDITABLE);
-        EditText songArtist = (EditText) findViewById(R.id.et_add_peopleLastName); songArtist.setText(cursor.getString(2), TextView.BufferType.EDITABLE);
-        EditText songTempo = (EditText) findViewById(R.id.et_add_peopleTitle); songTempo.setText(cursor.getString(3), TextView.BufferType.EDITABLE);
-        EditText songGenre = (EditText) findViewById(R.id.et_add_peoplePhone); songGenre.setText(cursor.getString(4), TextView.BufferType.EDITABLE);
-        EditText songYear = (EditText) findViewById(R.id.et_add_peopleEmail); songYear.setText(cursor.getString(5), TextView.BufferType.EDITABLE);
-        EditText songNotes = (EditText) findViewById(R.id.et_edit_notes); songNotes.setText(cursor.getString(6), TextView.BufferType.EDITABLE);
-        EditText songLength = (EditText) findViewById(R.id.et_edit_length); songLength.setText(cursor.getString(7), TextView.BufferType.EDITABLE);
-        EditText songTimeSig = (EditText) findViewById(R.id.et_edit_timeSig); songTimeSig.setText(cursor.getString(8), TextView.BufferType.EDITABLE);
-        EditText songKey = (EditText) findViewById(R.id.et_edit_key); songKey.setText(cursor.getString(9), TextView.BufferType.EDITABLE);
+        TextView songTitle = (TextView) findViewById(R.id.et_song_edit_name); songTitle.setText(cursor.getString(1), TextView.BufferType.EDITABLE);
+        EditText songArtist = (EditText) findViewById(R.id.et_song_edit_artist); songArtist.setText(cursor.getString(2), TextView.BufferType.EDITABLE);
+        EditText songTempo = (EditText) findViewById(R.id.et_song_edit_tempo); songTempo.setText(cursor.getString(3), TextView.BufferType.EDITABLE);
+        EditText songGenre = (EditText) findViewById(R.id.et_song_edit_genre); songGenre.setText(cursor.getString(4), TextView.BufferType.EDITABLE);
+        EditText songYear = (EditText) findViewById(R.id.et_song_edit_year); songYear.setText(cursor.getString(5), TextView.BufferType.EDITABLE);
+        EditText songNotes = (EditText) findViewById(R.id.et_song_edit_notes); songNotes.setText(cursor.getString(6), TextView.BufferType.EDITABLE);
+        EditText songLength = (EditText) findViewById(R.id.et_song_edit_length); songLength.setText(cursor.getString(7), TextView.BufferType.EDITABLE);
+        EditText songTimeSig = (EditText) findViewById(R.id.et_song_edit_timeSig); songTimeSig.setText(cursor.getString(8), TextView.BufferType.EDITABLE);
+        EditText songKey = (EditText) findViewById(R.id.et_song_edit_key); songKey.setText(cursor.getString(9), TextView.BufferType.EDITABLE);
 
 
 

@@ -16,7 +16,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_songname"
         android:id="@+id/tv_songname"
-        android:layout_above="@+id/et_add_peopleLastName"
+        android:layout_above="@+id/et_song_edit_artist"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/et_edit_peopleFirstName"
+        android:id="@+id/et_song_edit_name"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/button3"
         android:layout_alignEnd="@+id/button3"
@@ -36,26 +36,26 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_artist"
         android:id="@+id/tv_artist"
-        android:layout_alignBottom="@+id/et_add_peopleLastName"
+        android:layout_alignBottom="@+id/et_song_edit_artist"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/et_add_peopleLastName"
-        android:layout_below="@+id/et_edit_peopleFirstName"
-        android:layout_alignLeft="@+id/et_edit_peopleFirstName"
-        android:layout_alignStart="@+id/et_edit_peopleFirstName"
+        android:id="@+id/et_song_edit_artist"
+        android:layout_below="@+id/et_song_edit_name"
+        android:layout_alignLeft="@+id/et_song_edit_name"
+        android:layout_alignStart="@+id/et_song_edit_name"
         android:width="230dp"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/et_add_peopleTitle"
-        android:layout_below="@+id/et_add_peopleLastName"
-        android:layout_alignLeft="@+id/et_add_peopleLastName"
-        android:layout_alignStart="@+id/et_add_peopleLastName"
+        android:id="@+id/et_song_edit_tempo"
+        android:layout_below="@+id/et_song_edit_artist"
+        android:layout_alignLeft="@+id/et_song_edit_artist"
+        android:layout_alignStart="@+id/et_song_edit_artist"
         android:width="230dp"/>
 
     <TextView
@@ -64,7 +64,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_tempo"
         android:id="@+id/tv_tempo"
-        android:layout_alignBottom="@+id/et_add_peopleTitle"
+        android:layout_alignBottom="@+id/et_song_edit_tempo"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
@@ -94,7 +94,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_genre"
         android:id="@+id/tv_genre"
-        android:layout_above="@+id/et_add_peopleEmail"
+        android:layout_above="@+id/et_song_edit_year"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
@@ -104,7 +104,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_year"
         android:id="@+id/tv_year"
-        android:layout_alignBottom="@+id/et_add_peopleEmail"
+        android:layout_alignBottom="@+id/et_song_edit_year"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
@@ -124,7 +124,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_length"
         android:id="@+id/tv_length"
-        android:layout_above="@+id/et_edit_timeSig"
+        android:layout_above="@+id/et_song_edit_timeSig"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
@@ -134,7 +134,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_timeSignature"
         android:id="@+id/tv_timeSig"
-        android:layout_above="@+id/et_edit_key"
+        android:layout_above="@+id/et_song_edit_key"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
@@ -144,32 +144,32 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/txt_key"
         android:id="@+id/tv_key"
-        android:layout_alignBottom="@+id/et_edit_key"
+        android:layout_alignBottom="@+id/et_song_edit_key"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/et_add_peoplePhone"
-        android:layout_below="@+id/et_add_peopleTitle"
-        android:layout_alignLeft="@+id/et_add_peopleTitle"
-        android:layout_alignStart="@+id/et_add_peopleTitle"
+        android:id="@+id/et_song_edit_genre"
+        android:layout_below="@+id/et_song_edit_tempo"
+        android:layout_alignLeft="@+id/et_song_edit_tempo"
+        android:layout_alignStart="@+id/et_song_edit_tempo"
         android:width="230dp"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/et_add_peopleEmail"
-        android:layout_below="@+id/et_add_peoplePhone"
-        android:layout_alignLeft="@+id/et_add_peoplePhone"
-        android:layout_alignStart="@+id/et_add_peoplePhone"
+        android:id="@+id/et_song_edit_year"
+        android:layout_below="@+id/et_song_edit_genre"
+        android:layout_alignLeft="@+id/et_song_edit_genre"
+        android:layout_alignStart="@+id/et_song_edit_genre"
         android:width="230dp"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/et_edit_notes"
+        android:id="@+id/et_song_edit_notes"
         android:width="230dp"
         android:layout_below="@+id/tv_notes"
         android:layout_alignParentLeft="true"
@@ -178,27 +178,27 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/et_edit_length"
+        android:id="@+id/et_song_edit_length"
         android:width="230dp"
-        android:layout_below="@+id/et_add_peopleEmail"
+        android:layout_below="@+id/et_song_edit_year"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/et_edit_timeSig"
+        android:id="@+id/et_song_edit_timeSig"
         android:width="230dp"
-        android:layout_below="@+id/et_edit_length"
+        android:layout_below="@+id/et_song_edit_length"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/et_edit_key"
-        android:layout_below="@+id/et_edit_timeSig"
-        android:layout_alignLeft="@+id/et_edit_timeSig"
-        android:layout_alignStart="@+id/et_edit_timeSig"
+        android:id="@+id/et_song_edit_key"
+        android:layout_below="@+id/et_song_edit_timeSig"
+        android:layout_alignLeft="@+id/et_song_edit_timeSig"
+        android:layout_alignStart="@+id/et_song_edit_timeSig"
         android:width="230dp"/>
 </RelativeLayout>

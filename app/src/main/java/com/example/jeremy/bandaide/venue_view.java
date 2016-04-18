@@ -36,7 +36,7 @@ public class venue_view extends AppCompatActivity {
     }
     public void onClick_edit(View v)
     {
-        TextView name = (TextView)findViewById(R.id.tv_view_peopleFirstName);
+        TextView name = (TextView)findViewById(R.id.tv_venue_view_name_view);
         String selected = name.getText().toString();
         Intent intent = new Intent(getApplicationContext(), venue_edit.class);
         intent.putExtra("selVenue" ,selected);
@@ -50,7 +50,7 @@ public class venue_view extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
-                TextView songTitle = (TextView) findViewById(R.id.tv_view_peopleFirstName);
+                TextView songTitle = (TextView) findViewById(R.id.tv_venue_view_name_view);
                 String name = songTitle.getText().toString();
                 songDB.deleteRow_venue(name);
                 Intent intent = new Intent(getApplicationContext(), venue.class);
@@ -81,11 +81,11 @@ public class venue_view extends AppCompatActivity {
         Cursor cursor = songDB.getRow_venue(selVenue);
         startManagingCursor(cursor);
 
-        TextView venueName = (TextView) findViewById(R.id.tv_view_peopleFirstName); venueName.setText(cursor.getString(1));
-        TextView venueAddress = (TextView) findViewById(R.id.tv_view_peopleLastName); venueAddress.setText(cursor.getString(2));
-        TextView venueCity = (TextView) findViewById(R.id.tv_view_peopleTitle); venueCity.setText(cursor.getString(3));
-        TextView venueState = (TextView) findViewById(R.id.tv_view_peoplePhone); venueState.setText(cursor.getString(4));
-        TextView venueZip = (TextView) findViewById(R.id.tv_view_peopleEmail); venueZip.setText(cursor.getString(5));
+        TextView venueName = (TextView) findViewById(R.id.tv_venue_view_name_view); venueName.setText(cursor.getString(1));
+        TextView venueAddress = (TextView) findViewById(R.id.tv_venue_view_address_view); venueAddress.setText(cursor.getString(2));
+        TextView venueCity = (TextView) findViewById(R.id.tv_venue_view_city_view); venueCity.setText(cursor.getString(3));
+        TextView venueState = (TextView) findViewById(R.id.tv_venue_view_state_view); venueState.setText(cursor.getString(4));
+        TextView venueZip = (TextView) findViewById(R.id.tv_venue_view_zip_view); venueZip.setText(cursor.getString(5));
 
 
 

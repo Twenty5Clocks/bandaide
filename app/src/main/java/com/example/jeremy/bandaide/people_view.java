@@ -36,7 +36,7 @@ public class people_view extends AppCompatActivity {
     }
     public void onClick_edit(View v)
     {
-        TextView name = (TextView)findViewById(R.id.tv_view_peopleFirstName);
+        TextView name = (TextView)findViewById(R.id.tv_people_view_firstName_view);
         String selected = name.getText().toString();
         Intent intent = new Intent(getApplicationContext(), people_edit.class);
         intent.putExtra("selPeople" ,selected);
@@ -50,7 +50,7 @@ public class people_view extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.dismiss();
-                TextView songTitle = (TextView) findViewById(R.id.tv_view_peopleFirstName);
+                TextView songTitle = (TextView) findViewById(R.id.tv_people_view_firstName_view);
                 String name = songTitle.getText().toString();
                 songDB.deleteRow_people(name);
                 Intent intent = new Intent(getApplicationContext(), people.class);
@@ -81,11 +81,11 @@ public class people_view extends AppCompatActivity {
         Cursor cursor = songDB.getRow_person(selPeople);
         startManagingCursor(cursor);
 
-        TextView peopleFirstName = (TextView) findViewById(R.id.tv_view_peopleFirstName); peopleFirstName.setText(cursor.getString(2));
-        TextView peopleLastName = (TextView) findViewById(R.id.tv_view_peopleLastName); peopleLastName.setText(cursor.getString(3));
-        TextView peopleTitle = (TextView) findViewById(R.id.tv_view_peopleTitle); peopleTitle.setText(cursor.getString(4));
-        TextView peoplePhone = (TextView) findViewById(R.id.tv_view_peoplePhone); peoplePhone.setText(cursor.getString(5));
-        TextView peopleEmail = (TextView) findViewById(R.id.tv_view_peopleEmail); peopleEmail.setText(cursor.getString(6));
+        TextView peopleFirstName = (TextView) findViewById(R.id.tv_people_view_firstName_view); peopleFirstName.setText(cursor.getString(2));
+        TextView peopleLastName = (TextView) findViewById(R.id.tv_people_view_lastName_view); peopleLastName.setText(cursor.getString(3));
+        TextView peopleTitle = (TextView) findViewById(R.id.tv_people_view_title_view); peopleTitle.setText(cursor.getString(4));
+        TextView peoplePhone = (TextView) findViewById(R.id.tv_people_view_phone_view); peoplePhone.setText(cursor.getString(5));
+        TextView peopleEmail = (TextView) findViewById(R.id.tv_people_view_email_view); peopleEmail.setText(cursor.getString(6));
 
 
 

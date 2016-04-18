@@ -22,11 +22,11 @@ public class venue_add extends AppCompatActivity {
         closeDB();
     }
     public void onClick_button_submit(View v){
-        EditText et_venueName = (EditText) findViewById(R.id.et_edit_peopleFirstName);
-        EditText et_venueAddress = (EditText) findViewById(R.id.et_add_peopleLastName);
-        EditText et_venueCity = (EditText) findViewById(R.id.et_add_peopleTitle);
-        EditText et_venueState = (EditText) findViewById(R.id.et_add_peoplePhone);
-        EditText et_venueZip = (EditText) findViewById(R.id.et_add_peopleEmail);
+        EditText et_venueName = (EditText) findViewById(R.id.et_venue_add_name);
+        EditText et_venueAddress = (EditText) findViewById(R.id.et_venue_add_address);
+        EditText et_venueCity = (EditText) findViewById(R.id.et_venue_add_city);
+        EditText et_venueState = (EditText) findViewById(R.id.et_venue_add_state);
+        EditText et_venueZip = (EditText) findViewById(R.id.et_venue_add_zip);
 
         String venueNameString = et_venueName.getText().toString();
         String venueAddressString = et_venueAddress.getText().toString();

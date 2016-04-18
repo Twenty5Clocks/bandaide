@@ -22,7 +22,7 @@ public class people_add extends AppCompatActivity {
         closeDB();
     }
     public void onClick_button_submit(View v){
-        EditText et_peopleFirstName = (EditText) findViewById(R.id.et_edit_peopleFirstName);
+        EditText et_peopleFirstName = (EditText) findViewById(R.id.et_add_peopleFirstName);
         EditText et_peopleLastName = (EditText) findViewById(R.id.et_add_peopleLastName);
         EditText et_peopleTitle = (EditText) findViewById(R.id.et_add_peopleTitle);
         EditText et_peoplePhone = (EditText) findViewById(R.id.et_add_peoplePhone);

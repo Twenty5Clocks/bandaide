@@ -22,15 +22,15 @@ public class song_add extends AppCompatActivity {
         closeDB();
     }
     public void onClick_button_submit(View v){
-        EditText et_songName = (EditText) findViewById(R.id.et_gigs_add_venue);
-        EditText et_artist = (EditText) findViewById(R.id.et_gigs_add_date);
-        EditText et_tempo = (EditText) findViewById(R.id.et_gigs_add_time);
-        EditText et_genre = (EditText) findViewById(R.id.et_genre);
-        EditText et_year = (EditText) findViewById(R.id.et_year);
-        EditText et_notes = (EditText) findViewById(R.id.et_notes);
-        EditText et_length = (EditText) findViewById(R.id.et_length);
-        EditText et_timeSig = (EditText) findViewById(R.id.et_timeSig);
-        EditText et_key = (EditText) findViewById(R.id.et_key);
+        EditText et_songName = (EditText) findViewById(R.id.et_song_add_name);
+        EditText et_artist = (EditText) findViewById(R.id.et_song_add_artist);
+        EditText et_tempo = (EditText) findViewById(R.id.et_song_add_tempo);
+        EditText et_genre = (EditText) findViewById(R.id.et_song_add_genre);
+        EditText et_year = (EditText) findViewById(R.id.et_song_add_year);
+        EditText et_notes = (EditText) findViewById(R.id.et_song_add_notes);
+        EditText et_length = (EditText) findViewById(R.id.et_song_add_length);
+        EditText et_timeSig = (EditText) findViewById(R.id.et_song_add_timeSig);
+        EditText et_key = (EditText) findViewById(R.id.et_song_add_key);
         String songNameString = et_songName.getText().toString();
         String artistString = et_artist.getText().toString();
         int tempoInt = Integer.parseInt(et_tempo.getText().toString());
