@@ -19,7 +19,7 @@ public class DBAdapter {
     /////////////////////////////////////////////////////////////////////
     // For logging:
     private static final String TAG = "DBAdapter";
-    public static final int DATABASE_VERSION = 14 ;
+    public static final int DATABASE_VERSION = 15 ;
 
 
     public static final String KEY_SONG_ID = "_id";
@@ -233,6 +233,18 @@ public class DBAdapter {
         // Insert it into the database.
         return db.insert(DATABASE_TABLE_GIG, null, initialValues);
     }
+    public long insertRow_Setlists(String title, int gigID, String notes) {
+
+        // Create row's data:
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_SETLIST_TITLE, title);
+        initialValues.put(KEY_SETLIST_GIG_ID, gigID);
+        initialValues.put(KEY_SETLIST_NOTES, notes);
+        Log.v(TAG, "Inserted row in gigs table: " + title + ", " + gigID + ", " + notes);
+
+        // Insert it into the database.
+        return db.insert(DATABASE_TABLE_SETLIST, null, initialValues);
+    }
     public int getVenueID_VenueName(String venue){
 
         Cursor cursor = db.rawQuery("SELECT " + KEY_VENUE_ID + " FROM " + DATABASE_TABLE_VENUE + " WHERE " + KEY_VENUE_NAME + "= " + "\"" +  venue + "\";", null);
@@ -262,6 +274,20 @@ public class DBAdapter {
         cursor.close();
         return venue_name;
     }
+    public int getVenueID_GigID(int venue){
+
+        Cursor cursor = db.rawQuery("SELECT " + KEY_GIG_VENUE_ID + " FROM " + DATABASE_TABLE_GIG + " WHERE " + KEY_GIG_ID + "= "  +  venue + ";", null);
+        int venue_id;
+        if (cursor.moveToFirst()) {
+            venue_id = cursor.getInt(0);
+        }else {
+            venue_id = 0;
+        }
+        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        cursor.close();
+        Log.v(TAG, "Got venue_ID: " + venue_id + " from " + venue);
+        return venue_id;
+    }
 
 
 
@@ -276,13 +302,18 @@ public class DBAdapter {
     }
     public boolean deleteRow_people(String name) {
         String where = KEY_PERSON_FIRSTNAME + "= \""  + name + "\"";
-        Log.v(TAG, "Deleting row: " + where);
+        Log.v(TAG, "Deleting person row: " + where);
         return db.delete(DATABASE_TABLE_PERSON, where, null) != 0;
     }
     public boolean deleteRow_gigs(int id) {
         String where = KEY_GIG_ID + "= "  + id;
-        Log.v(TAG, "Deleting row: " + where);
+        Log.v(TAG, "Deleting gigs row: " + where);
         return db.delete(DATABASE_TABLE_GIG, where, null) != 0;
+    }
+    public boolean deleteRow_setlists(int id) {
+        String where = KEY_SETLIST_ID + "="  + id;
+        Log.v(TAG, "Deleting setlist row: " + where);
+        return db.delete(DATABASE_TABLE_SETLIST, where, null) != 0;
     }
 
     public void deleteAll() {
@@ -351,6 +382,8 @@ public class DBAdapter {
         if (c != null) {
             c.moveToFirst();
         }
+        Log.v(TAG,"getRow_song:");
+        Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
         return c;
     }
     public Cursor getRow_venue(String venueName) {
@@ -360,6 +393,8 @@ public class DBAdapter {
         if (c != null) {
             c.moveToFirst();
         }
+        Log.v(TAG,"getRow_venue:");
+        Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
         return c;
     }
     public Cursor getRow_person(String personName) {
@@ -369,6 +404,8 @@ public class DBAdapter {
         if (c != null) {
             c.moveToFirst();
         }
+        Log.v(TAG,"getRow_person:");
+        Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
         return c;
     }
     public Cursor getRow_gigs(int gigId) {
@@ -378,6 +415,19 @@ public class DBAdapter {
         if (c != null) {
             c.moveToFirst();
         }
+        Log.v(TAG,"getRow_gigs:");
+        Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
+        return c;
+    }
+    public Cursor getRow_setlists(int setlistId) {
+        String where = KEY_SETLIST_ID + "= \""  + setlistId + "\"";
+        Cursor c =   db.query(DATABASE_TABLE_SETLIST, ALL_SETLIST_KEYS ,
+                where, null, null, null , null, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        Log.v(TAG,"getRow_setlists: setlistId = " + setlistId);
+        Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
         return c;
     }
 
@@ -440,6 +490,17 @@ public class DBAdapter {
 
         // Insert it into the database.
         return db.update(DATABASE_TABLE_GIG, newValues, where, null) != 0 ;
+    }
+    public boolean updateRow_setlists(int setlistsID,String title, int gig, String notes) {
+        String where = KEY_SETLIST_ID + "= "  + setlistsID;
+
+        ContentValues newValues = new ContentValues();
+        newValues.put(KEY_SETLIST_TITLE, title);
+        newValues.put(KEY_SETLIST_GIG_ID, gig);
+        newValues.put(KEY_SETLIST_NOTES, notes);
+
+        // Insert it into the database.
+        return db.update(DATABASE_TABLE_SETLIST, newValues, where, null) != 0 ;
     }
 
 
@@ -534,6 +595,186 @@ public class DBAdapter {
             initialValues.put(KEY_SONG_LENGTH, "5:57");
             initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
             initialValues.put(KEY_SONG_KEY, "G");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "Unknown Road");
+            initialValues.put(KEY_SONG_ARTIST, "Pennywise");
+            initialValues.put(KEY_SONG_TEMPO, 150);
+            initialValues.put(KEY_SONG_GENRE, "Punk");
+            initialValues.put(KEY_SONG_YEAR, 1993);
+            initialValues.put(KEY_SONG_NOTES, "Wouldn't it be nice!");
+            initialValues.put(KEY_SONG_LENGTH, "2:46");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
+            initialValues.put(KEY_SONG_KEY, "A");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "(How Much Is) That Doggie in the Window");
+            initialValues.put(KEY_SONG_ARTIST, "Patti Page");
+            initialValues.put(KEY_SONG_TEMPO, 100);
+            initialValues.put(KEY_SONG_GENRE, "Novelty");
+            initialValues.put(KEY_SONG_YEAR, 1953);
+            initialValues.put(KEY_SONG_NOTES, "Woof woof!");
+            initialValues.put(KEY_SONG_LENGTH, "2:58");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "3/4");
+            initialValues.put(KEY_SONG_KEY, "C");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "Uptown Funk");
+            initialValues.put(KEY_SONG_ARTIST, "Mark Ronson");
+            initialValues.put(KEY_SONG_TEMPO, 122);
+            initialValues.put(KEY_SONG_GENRE, "Funk");
+            initialValues.put(KEY_SONG_YEAR, 2014);
+            initialValues.put(KEY_SONG_NOTES, "Stop... wait a minute.");
+            initialValues.put(KEY_SONG_LENGTH, "4:30");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
+            initialValues.put(KEY_SONG_KEY, "Bm");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "Let's Get It On");
+            initialValues.put(KEY_SONG_ARTIST, "Marvin Gaye");
+            initialValues.put(KEY_SONG_TEMPO, 88);
+            initialValues.put(KEY_SONG_GENRE, "Soul");
+            initialValues.put(KEY_SONG_YEAR, 1973);
+            initialValues.put(KEY_SONG_NOTES, "What a classic!!");
+            initialValues.put(KEY_SONG_LENGTH, "4:44");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
+            initialValues.put(KEY_SONG_KEY, "D");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "Yesterday");
+            initialValues.put(KEY_SONG_ARTIST, "The Beatles");
+            initialValues.put(KEY_SONG_TEMPO, 80);
+            initialValues.put(KEY_SONG_GENRE, "Pop");
+            initialValues.put(KEY_SONG_YEAR, 1965);
+            initialValues.put(KEY_SONG_NOTES, "Scrambled Eggs");
+            initialValues.put(KEY_SONG_LENGTH, "2:03");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
+            initialValues.put(KEY_SONG_KEY, "G");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "Stairway to Heaven");
+            initialValues.put(KEY_SONG_ARTIST, "Led Zeppelin");
+            initialValues.put(KEY_SONG_TEMPO, 120);
+            initialValues.put(KEY_SONG_GENRE, "Classic Rock");
+            initialValues.put(KEY_SONG_YEAR, 1971);
+            initialValues.put(KEY_SONG_NOTES, "Double Neck");
+            initialValues.put(KEY_SONG_LENGTH, "8:03");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
+            initialValues.put(KEY_SONG_KEY, "F");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "Symphony No. 9");
+            initialValues.put(KEY_SONG_ARTIST, "Ludwig van Beethoven");
+            initialValues.put(KEY_SONG_TEMPO, 75);
+            initialValues.put(KEY_SONG_GENRE, "Classical");
+            initialValues.put(KEY_SONG_YEAR, 1824);
+            initialValues.put(KEY_SONG_NOTES, "Bum bum bum BUM!!!");
+            initialValues.put(KEY_SONG_LENGTH, "15:00");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
+            initialValues.put(KEY_SONG_KEY, "Dm");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "Gold Lion");
+            initialValues.put(KEY_SONG_ARTIST, "Yeah Yeah Yeahs");
+            initialValues.put(KEY_SONG_TEMPO, 70);
+            initialValues.put(KEY_SONG_GENRE, "Indie Rock");
+            initialValues.put(KEY_SONG_YEAR, 2006);
+            initialValues.put(KEY_SONG_NOTES, "Nice beat");
+            initialValues.put(KEY_SONG_LENGTH, "3:09");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
+            initialValues.put(KEY_SONG_KEY, "F#");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "Where Is My Mind?");
+            initialValues.put(KEY_SONG_ARTIST, "Pixies");
+            initialValues.put(KEY_SONG_TEMPO, 81);
+            initialValues.put(KEY_SONG_GENRE, "Alternative Rock");
+            initialValues.put(KEY_SONG_YEAR, 1988);
+            initialValues.put(KEY_SONG_NOTES, "Fight Club");
+            initialValues.put(KEY_SONG_LENGTH, "3:53");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
+            initialValues.put(KEY_SONG_KEY, "G");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "Straight Outta Compton");
+            initialValues.put(KEY_SONG_ARTIST, "N.W.A");
+            initialValues.put(KEY_SONG_TEMPO, 100);
+            initialValues.put(KEY_SONG_GENRE, "Rap");
+            initialValues.put(KEY_SONG_YEAR, 1988);
+            initialValues.put(KEY_SONG_NOTES, "It's a rap!!");
+            initialValues.put(KEY_SONG_LENGTH, "3:12");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
+            initialValues.put(KEY_SONG_KEY, "E");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "True Companion");
+            initialValues.put(KEY_SONG_ARTIST, "Marc Cohn");
+            initialValues.put(KEY_SONG_TEMPO, 99);
+            initialValues.put(KEY_SONG_GENRE, "Folk");
+            initialValues.put(KEY_SONG_YEAR, 1991);
+            initialValues.put(KEY_SONG_NOTES, "Love Song!");
+            initialValues.put(KEY_SONG_LENGTH, "4:10");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
+            initialValues.put(KEY_SONG_KEY, "Bb");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "Raining Blood");
+            initialValues.put(KEY_SONG_ARTIST, "Slayer");
+            initialValues.put(KEY_SONG_TEMPO, 140);
+            initialValues.put(KEY_SONG_GENRE, "Thrash Metal");
+            initialValues.put(KEY_SONG_YEAR, 1986);
+            initialValues.put(KEY_SONG_NOTES, "Chugga Chugga");
+            initialValues.put(KEY_SONG_LENGTH, "4:14");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
+            initialValues.put(KEY_SONG_KEY, "Eb");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "The Star Spangled Banner");
+            initialValues.put(KEY_SONG_ARTIST, "Francis Scott Key");
+            initialValues.put(KEY_SONG_TEMPO, 95);
+            initialValues.put(KEY_SONG_GENRE, "Anthem");
+            initialValues.put(KEY_SONG_YEAR, 1814);
+            initialValues.put(KEY_SONG_NOTES, "Merica!");
+            initialValues.put(KEY_SONG_LENGTH, "2:30");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "3/4");
+            initialValues.put(KEY_SONG_KEY, "F");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "Blue Bossa");
+            initialValues.put(KEY_SONG_ARTIST, "Kenny Dorham");
+            initialValues.put(KEY_SONG_TEMPO, 88);
+            initialValues.put(KEY_SONG_GENRE, "Jazz");
+            initialValues.put(KEY_SONG_YEAR, 1963);
+            initialValues.put(KEY_SONG_NOTES, "Smooth");
+            initialValues.put(KEY_SONG_LENGTH, "5:33");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
+            initialValues.put(KEY_SONG_KEY, "Cm");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "The Thrill Is Gone");
+            initialValues.put(KEY_SONG_ARTIST, "B.B. King");
+            initialValues.put(KEY_SONG_TEMPO, 90);
+            initialValues.put(KEY_SONG_GENRE, "Blues");
+            initialValues.put(KEY_SONG_YEAR, 1969);
+            initialValues.put(KEY_SONG_NOTES, "12 Bar");
+            initialValues.put(KEY_SONG_LENGTH, "5:24");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
+            initialValues.put(KEY_SONG_KEY, "Gm");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "Let's Dance");
+            initialValues.put(KEY_SONG_ARTIST, "David Bowie");
+            initialValues.put(KEY_SONG_TEMPO, 99);
+            initialValues.put(KEY_SONG_GENRE, "Pop");
+            initialValues.put(KEY_SONG_YEAR, 1982);
+            initialValues.put(KEY_SONG_NOTES, "Stevie Ray was here");
+            initialValues.put(KEY_SONG_LENGTH, "4:07");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
+            initialValues.put(KEY_SONG_KEY, "Abm");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "Mamma Mia");
+            initialValues.put(KEY_SONG_ARTIST, "ABBA");
+            initialValues.put(KEY_SONG_TEMPO, 111);
+            initialValues.put(KEY_SONG_GENRE, "Pop");
+            initialValues.put(KEY_SONG_YEAR, 1975);
+            initialValues.put(KEY_SONG_NOTES, "Here we go again");
+            initialValues.put(KEY_SONG_LENGTH, "3:35");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "2/4");
+            initialValues.put(KEY_SONG_KEY, "F");
+            db.insert(DATABASE_TABLE_SONG, null, initialValues);
+            initialValues.put(KEY_SONG_TITLE, "Bye Bye Bye");
+            initialValues.put(KEY_SONG_ARTIST, "NSYNC");
+            initialValues.put(KEY_SONG_TEMPO, 130);
+            initialValues.put(KEY_SONG_GENRE, "Pop");
+            initialValues.put(KEY_SONG_YEAR, 2000);
+            initialValues.put(KEY_SONG_NOTES, "JT's beginning");
+            initialValues.put(KEY_SONG_LENGTH, "3:20");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
+            initialValues.put(KEY_SONG_KEY, "F");
             db.insert(DATABASE_TABLE_SONG, null, initialValues);
 
 //initial venues

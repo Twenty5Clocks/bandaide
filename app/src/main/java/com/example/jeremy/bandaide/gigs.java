@@ -90,17 +90,14 @@ public class gigs extends AppCompatActivity {
                 cursor,
                 fromFieldNames,
                 toViewIDs);
-        //Log.v(TAG,"cursor adapter created" );
+
         myCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View view, Cursor cursor, int column) {
-                if( column == cursor.getColumnIndex(DBAdapter.KEY_GIG_VENUE_ID) ){ // let's suppose that the column 0 is the date
+                if( column == cursor.getColumnIndex(DBAdapter.KEY_GIG_VENUE_ID) ){
                     TextView tv = (TextView) view.findViewById(R.id.item_gig_venue);
                     int venueID = cursor.getInt(column);
-                    // here you use SimpleDateFormat to bla blah blah
                     String venueName = songDB.getVenueName_VenueID(venueID);
-                    //String logString = "Changed something: " + venueName + "  "+ String.valueOf(venueID);
-                    //Log.v(TAG,logString );
                     tv.setText(venueName);
                     return true;
                 }

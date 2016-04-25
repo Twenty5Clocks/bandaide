@@ -38,7 +38,9 @@
     <string name="txt_gigs_date">Date</string>
     <string name="txt_gigs_time">Time</string>
     <string name="txt_gigs_pay">Pay</string>
-
+    <string name="txt_setlists_title">Title</string>
+    <string name="txt_setlists_gig">Gig</string>
+    <string name="txt_setlists_notes">Notes</string>
 
 
     <string name="title_activity_song__activity_">Song_Activity_</string>

@@ -18,7 +18,7 @@ public class setlists extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_song);
+        setContentView(R.layout.activity_setlists);
 
         openDB();
         setlistsList = (ListView) findViewById(R.id.lv_setlists);
@@ -26,9 +26,12 @@ public class setlists extends AppCompatActivity {
             private int mPosition;
 
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-                String selected = ((TextView) v.findViewById(R.id.item_title)).getText().toString();
-                Intent intent = new Intent(getApplicationContext(), song_view.class);
-                intent.putExtra("selSong" ,selected);
+                //TextView tv = (TextView) v.findViewById(R.id.item_gig_venue);
+                //String tvValue = tv.getText().toString();
+                //int selected = Integer.valueOf(tvValue);
+                int selected = (int)id;
+                Intent intent = new Intent(getApplicationContext(), setlists_view.class);
+                intent.putExtra("selSetlists" ,selected);
                 startActivity(intent);
             }
         });
@@ -58,12 +61,12 @@ public class setlists extends AppCompatActivity {
     }
     public void onClick_addSong(View v)
     {
-        Intent intent = new Intent(this, song_add.class);
+        Intent intent = new Intent(this, setlists_add.class);
         startActivity(intent);
     }
     public void onClick_tempInsert(View v)
     {
-        songDB.insertRow_Song("Paranoid Android", "Radiohead", 125, "Rock", 1995, "Great Song!!", "3:50", "4/4", "Eb");
+        songDB.insertRow_Setlists("First Gig", 1, "First gig for new band");
         populateListViewFromDB();
     }
 
@@ -76,8 +79,8 @@ public class setlists extends AppCompatActivity {
 
         //setup mapping for cursor to view fields
         String[] fromFieldNames = new String[]
-                {DBAdapter.KEY_SONG_TITLE, DBAdapter.KEY_SONG_ARTIST, DBAdapter.KEY_SONG_KEY, DBAdapter.KEY_SONG_GENRE, DBAdapter.KEY_SONG_YEAR};
-        int[] toViewIDs = new int[] {R.id.item_setlists_name, R.id.item_setlists_venue, R.id.item_setlists_date, R.id.item_setlists_notes};
+                {DBAdapter.KEY_SETLIST_TITLE, DBAdapter.KEY_SETLIST_GIG_ID, DBAdapter.KEY_SETLIST_NOTES};
+        int[] toViewIDs = new int[] {R.id.item_setlists_name, R.id.item_setlists_venue, R.id.item_setlists_notes};
 
         //create adapter to map columns of the db to elements in the UI
         SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(
@@ -86,6 +89,21 @@ public class setlists extends AppCompatActivity {
                 cursor,
                 fromFieldNames,
                 toViewIDs);
+
+        myCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int column) {
+                if( column == cursor.getColumnIndex(DBAdapter.KEY_SETLIST_GIG_ID) ){
+                    TextView tv = (TextView) view.findViewById(R.id.item_setlists_venue);
+                    int venueID = cursor.getInt(column);
+                    int venueLoc = songDB.getVenueID_GigID(venueID);
+                    String venueName = songDB.getVenueName_VenueID(venueLoc);
+                    tv.setText(venueName);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         //set adapter for the listview
         ListView myList = (ListView) findViewById(R.id.lv_setlists);
