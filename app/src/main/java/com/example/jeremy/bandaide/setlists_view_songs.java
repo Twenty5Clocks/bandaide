@@ -11,33 +11,33 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class setlists extends AppCompatActivity {
+public class setlists_view_songs extends AppCompatActivity {
     DBAdapter songDB;
-    ListView setlistsList;
+    ListView songList;
+    int selectedSetlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setlists);
+        setContentView(R.layout.activity_setlists_view_songs);
+        selectedSetlist = (int)getIntent().getSerializableExtra("selSetlists");
 
         openDB();
-        setlistsList = (ListView) findViewById(R.id.lv_setlists);
-        setlistsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        songList = (ListView) findViewById(R.id.lv_setlists_view_songs);
+        songList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             private int mPosition;
 
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-                //TextView tv = (TextView) v.findViewById(R.id.item_gig_venue);
-                //String tvValue = tv.getText().toString();
-                //int selected = Integer.valueOf(tvValue);
-                int selected = (int)id;
-                Intent intent = new Intent(getApplicationContext(), setlists_view.class);
-                intent.putExtra("selSetlists" ,selected);
+                String selected = ((TextView) v.findViewById(R.id.item_title)).getText().toString();
+                Intent intent = new Intent(getApplicationContext(), song_view.class);
+                intent.putExtra("selSong", selected);
                 startActivity(intent);
             }
         });
 
 
     }
+
     @Override
     protected void onDestroy(){
         super.onDestroy();
@@ -61,52 +61,54 @@ public class setlists extends AppCompatActivity {
     }
     public void onClick_addSong(View v)
     {
-        Intent intent = new Intent(this, setlists_add.class);
+        Intent intent = new Intent(this, song_add.class);
         startActivity(intent);
     }
-    public void onClick_tempInsert(View v)
-    {
-        songDB.insertRow_Setlists("First Gig", 1, "First gig for new band");
-        populateListViewFromDB();
-    }
+
 
     public void populateListViewFromDB()
     {
-        Cursor cursor = songDB.getAllRows_setlists();
+        Cursor cursor = songDB.getAllRows_setlists_songs(selectedSetlist);
         //allow activity to manage lifetime of the cursor
         //DEPRICATED
         startManagingCursor(cursor);
 
         //setup mapping for cursor to view fields
         String[] fromFieldNames = new String[]
-                {DBAdapter.KEY_SETLIST_TITLE, DBAdapter.KEY_SETLIST_GIG_ID, DBAdapter.KEY_SETLIST_NOTES};
-        int[] toViewIDs = new int[] {R.id.item_setlists_name, R.id.item_setlists_venue, R.id.item_setlists_notes};
+                {DBAdapter.KEY_SETLISTSONGS_SONG_ID, DBAdapter.KEY_SETLISTSONGS_POSITION};
+        int[] toViewIDs = new int[] {R.id.item_setlist_song_title, R.id.item_setlist_song_artist};
 
         //create adapter to map columns of the db to elements in the UI
         SimpleCursorAdapter myCursorAdapter = new SimpleCursorAdapter(
                 this,
-                R.layout.itemlayout_setlists,
+                R.layout.itemlayout_setlist_songs,
                 cursor,
                 fromFieldNames,
                 toViewIDs);
-
         myCursorAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             @Override
             public boolean setViewValue(View view, Cursor cursor, int column) {
-                if( column == cursor.getColumnIndex(DBAdapter.KEY_SETLIST_GIG_ID) ){
-                    TextView tv = (TextView) view.findViewById(R.id.item_setlists_venue);
-                    int venueID = cursor.getInt(2);
-                    int venueLoc = songDB.getVenueID_GigID(venueID);
-                    String venueName = songDB.getVenueName_VenueID(venueLoc);
-                    tv.setText(venueName);
+                if (column == cursor.getColumnIndex(DBAdapter.KEY_SETLISTSONGS_SONG_ID)) {
+                    TextView tv = (TextView) view.findViewById(R.id.item_setlist_song_title);
+                    int songID = cursor.getInt(column);
+                    String songName = songDB.getSongName_SongID(songID);
+                    tv.setText(songName);
+                    //ToDo make this listview populate both the title and artist (code below does not work...)
+
+                    //TextView tv2 = (TextView) view.findViewById(R.id.item_setlist_song_artist);
+                    //String songArtist = songDB.getSongArtist_SongID(songID);
+                    //tv2.setText(songArtist);
                     return true;
                 }
                 return false;
             }
+
+
+
         });
 
         //set adapter for the listview
-        ListView myList = (ListView) findViewById(R.id.lv_setlists);
+        ListView myList = (ListView) findViewById(R.id.lv_setlists_view_songs);
         myList.setAdapter(myCursorAdapter);
 
     }

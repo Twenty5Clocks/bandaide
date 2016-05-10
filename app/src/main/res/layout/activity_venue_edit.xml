@@ -126,6 +126,7 @@
         android:layout_below="@+id/et_venue_edit_state"
         android:layout_alignLeft="@+id/et_venue_edit_state"
         android:layout_alignStart="@+id/et_venue_edit_state"
+        android:inputType="number"
         android:width="230dp"/>
 
 </RelativeLayout>

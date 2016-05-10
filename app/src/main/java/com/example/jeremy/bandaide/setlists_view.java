@@ -41,6 +41,20 @@ public class setlists_view extends AppCompatActivity {
         intent.putExtra("selSetlists" ,selected);
         startActivity(intent);
     }
+    public void onClick_edit_songs(View v)
+    {
+        int selected = selSetlists;
+        Intent intent = new Intent(getApplicationContext(), setlists_edit_songs.class);
+        intent.putExtra("selSetlists" ,selected);
+        startActivity(intent);
+    }
+    public void onClick_view_songs(View v)
+    {
+        int selected = selSetlists;
+        Intent intent = new Intent(getApplicationContext(), setlists_view_songs.class);
+        intent.putExtra("selSetlists" ,selected);
+        startActivity(intent);
+    }
     public void onClick_delete(View v)
     {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

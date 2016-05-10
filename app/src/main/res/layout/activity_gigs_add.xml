@@ -102,6 +102,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/et_gigs_add_pay"
         android:width="230dp"
+        android:inputType="number"
         android:layout_below="@+id/et_gigs_add_time"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"/>

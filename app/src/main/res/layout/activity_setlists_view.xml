@@ -105,4 +105,23 @@
         android:layout_centerHorizontal="true"
         android:onClick="onClick_edit"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_edit_songs"
+        android:id="@+id/btn_setlist_view_edit_songs"
+        android:onClick="onClick_edit_songs"
+        android:layout_above="@+id/button5"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_view_songs"
+        android:id="@+id/btn_setlist_view_view_songs"
+        android:onClick="onClick_view_songs"
+        android:layout_alignTop="@+id/btn_setlist_view_edit_songs"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
+
 </RelativeLayout>

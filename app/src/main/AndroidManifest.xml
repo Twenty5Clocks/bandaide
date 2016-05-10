@@ -63,6 +63,8 @@
         </activity>
         <activity android:name=".setlists_edit_songs">
         </activity>
+        <activity android:name=".setlists_view_songs">
+        </activity>
     </application>
 
 </manifest>

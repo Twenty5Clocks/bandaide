@@ -9,7 +9,7 @@ import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
+import android.widget.Toast;
 
 
 public class DBAdapter {
@@ -19,7 +19,7 @@ public class DBAdapter {
     /////////////////////////////////////////////////////////////////////
     // For logging:
     private static final String TAG = "DBAdapter";
-    public static final int DATABASE_VERSION = 15 ;
+    public static final int DATABASE_VERSION = 25 ;
 
 
     public static final String KEY_SONG_ID = "_id";
@@ -240,10 +240,22 @@ public class DBAdapter {
         initialValues.put(KEY_SETLIST_TITLE, title);
         initialValues.put(KEY_SETLIST_GIG_ID, gigID);
         initialValues.put(KEY_SETLIST_NOTES, notes);
-        Log.v(TAG, "Inserted row in gigs table: " + title + ", " + gigID + ", " + notes);
+        Log.v(TAG, "Inserted row in setlists table: " + title + ", " + gigID + ", " + notes);
 
         // Insert it into the database.
         return db.insert(DATABASE_TABLE_SETLIST, null, initialValues);
+    }
+    public long insertRow_Setlists_Songs(int setlist, int song, int position) {
+
+        // Create row's data:
+        ContentValues initialValues = new ContentValues();
+        initialValues.put(KEY_SETLISTSONGS_SETLIST_ID, setlist);
+        initialValues.put(KEY_SETLISTSONGS_SONG_ID, song);
+        initialValues.put(KEY_SETLISTSONGS_POSITION, position);
+        Log.v(TAG, "Inserted row in setlist_songs table: " + setlist + ", " + song + ", " + position);
+
+        // Insert it into the database.
+        return db.insert(DATABASE_TABLE_SETLISTSONGS, null, initialValues);
     }
     public int getVenueID_VenueName(String venue){
 
@@ -274,9 +286,39 @@ public class DBAdapter {
         cursor.close();
         return venue_name;
     }
-    public int getVenueID_GigID(int venue){
+    public String getSongName_SongID(int songID){
+        Cursor cursor = db.rawQuery("SELECT " + KEY_SONG_TITLE + " FROM " + DATABASE_TABLE_SONG + " WHERE " + KEY_SONG_ID + "= " + songID + ";", null);
+        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        String song_name;
+        if (cursor.moveToFirst()) {
+            song_name = cursor.getString(cursor.getColumnIndex("title"));
+        }else{
+            song_name = "nothing found";
+        }
+        Log.v(TAG, "Got song_name: " + song_name + " from " + songID);
 
-        Cursor cursor = db.rawQuery("SELECT " + KEY_GIG_VENUE_ID + " FROM " + DATABASE_TABLE_GIG + " WHERE " + KEY_GIG_ID + "= "  +  venue + ";", null);
+
+        cursor.close();
+        return song_name;
+    }
+    public String getSongArtist_SongID(int songID){
+        Cursor cursor = db.rawQuery("SELECT " + KEY_SONG_ARTIST + " FROM " + DATABASE_TABLE_SONG + " WHERE " + KEY_SONG_ID + "= " + songID + ";", null);
+        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        String song_artist;
+        if (cursor.moveToFirst()) {
+            song_artist = cursor.getString(cursor.getColumnIndex("artist"));
+        }else{
+            song_artist = "nothing found";
+        }
+        Log.v(TAG, "Got song_artist: " + song_artist + " from " + songID);
+
+
+        cursor.close();
+        return song_artist;
+    }
+    public int getVenueID_GigID(int gig){
+
+        Cursor cursor = db.rawQuery("SELECT " + KEY_GIG_VENUE_ID + " FROM " + DATABASE_TABLE_GIG + " WHERE " + KEY_GIG_ID + "= "  +  gig + ";", null);
         int venue_id;
         if (cursor.moveToFirst()) {
             venue_id = cursor.getInt(0);
@@ -285,8 +327,130 @@ public class DBAdapter {
         }
         Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
         cursor.close();
-        Log.v(TAG, "Got venue_ID: " + venue_id + " from " + venue);
+        Log.v(TAG, "Got venue_ID: " + venue_id + " from gigID:" + gig);
         return venue_id;
+    }
+    public int getSongCount_SetlistID(int setlist){
+
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + DATABASE_TABLE_SETLISTSONGS + " WHERE " + KEY_SETLISTSONGS_SETLIST_ID + "= "  +  setlist + ";", null);
+        int song_count;
+        if (cursor.moveToFirst()) {
+            song_count = cursor.getInt(0);
+        }else {
+            song_count = 0;
+        }
+        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        cursor.close();
+        Log.v(TAG, "Got Song_Count: " + song_count + " from " + setlist);
+        return song_count;
+    }
+    public int getSongHighest_SetlistID(int setlist){
+        String where = "SELECT MAX(position) FROM " + DATABASE_TABLE_SETLISTSONGS + " WHERE " + KEY_SETLISTSONGS_SETLIST_ID + " = " + setlist + ";";
+        Cursor cursor = db.rawQuery(where, null);
+        int highest;
+        if (cursor.moveToFirst()) {
+            highest = cursor.getInt(0);
+        }else {
+            highest = 0;
+        }
+
+        return highest;
+    }
+    public int getSetlistSongID(int setlist, int song){
+
+        String where = "SELECT " + KEY_SETLISTSONGS_ID + " FROM " + DATABASE_TABLE_SETLISTSONGS + " WHERE " +
+                KEY_SETLISTSONGS_SETLIST_ID + " = " + setlist + " AND " +
+                KEY_SETLISTSONGS_SONG_ID + " = " + song +";";
+        Cursor cursor = db.rawQuery(where, null);
+        Log.v(TAG, where);
+        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+
+        int pos;
+        if (cursor.moveToFirst()) {
+            pos = cursor.getInt(0);
+        }else {
+            pos = 0;
+        }
+        Log.v(TAG, "Got setlist_song_id: " + pos + " from " + setlist + ", song_id: " + song);
+        return pos;
+    }
+    public int getSetlistSongPos(int setlist, int position){
+        String where = "SELECT " + KEY_SETLISTSONGS_POSITION + " FROM " + DATABASE_TABLE_SETLISTSONGS + " WHERE " +
+                KEY_SETLISTSONGS_SETLIST_ID + " = " + setlist + " AND " +
+                KEY_SETLISTSONGS_POSITION + " = " + position +";";
+
+        Cursor cursor = db.rawQuery(where, null);
+        Log.v(TAG, where);
+        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        int pos;
+        if (cursor.moveToFirst()) {
+            pos = cursor.getInt(0);
+        }else {
+            pos = 0;
+        }
+        Log.v(TAG, "Got setlist_song_pos: " + pos + " from " + setlist);
+        return pos;
+    }
+    public int getSetlistSongSong(int setlist, int position){
+        String where = "SELECT " + KEY_SETLISTSONGS_SONG_ID + " FROM " + DATABASE_TABLE_SETLISTSONGS + " WHERE " +
+                KEY_SETLISTSONGS_SETLIST_ID + " = " + setlist + " AND " +
+                KEY_SETLISTSONGS_POSITION + " = " + position +";";
+
+        Cursor cursor = db.rawQuery(where, null);
+        Log.v(TAG, where);
+        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        int pos;
+        if (cursor.moveToFirst()) {
+            pos = cursor.getInt(0);
+        }else {
+            pos = 0;
+        }
+        Log.v(TAG, "Got setlist_song_pos: " + pos + " from " + setlist);
+        return pos;
+    }
+    public int setlistSongPos_id(int id)
+    {
+        String where = "SELECT " + KEY_SETLISTSONGS_POSITION + " FROM " + DATABASE_TABLE_SETLISTSONGS +
+                " WHERE " + KEY_SETLISTSONGS_ID + " = " + id;
+        Cursor c = db.rawQuery(where, null);
+        int pos;
+        if (c.moveToFirst()) {
+            pos = c.getInt(0);
+        }else {
+            pos = 0;
+        }
+        return pos;
+    }
+    public void upSongPosition(int setlist, int position){
+        int id = getSetlistSongID(setlist, position);
+        int song = getSetlistSongSong(setlist, position);
+        position--;
+        updateRow_setlists_songs(id, setlist, song, position);
+
+
+    }
+    public void downSongPosition(int setlist, int song){
+        int id = getSetlistSongID(setlist, song);
+        int pos = getSetlistSongPos(setlist, song);
+        pos++;
+        updateRow_setlists_songs(id,setlist,song,pos);
+
+
+    }
+    public void removeSetlistSong(int setlistSongID){
+        //int id = getSetlistSongID(setlist, song);
+
+        String where1 = KEY_SETLIST_ID + "= " +setlistSongID;
+        db.delete(DATABASE_TABLE_SETLISTSONGS, where1, null);
+
+        //Log.v(TAG, "Deleted setlist_song: Setlist = " + setlist + ", song = " + song + ", setlistsong_id = " + id);
+
+
+    }
+    public void dbContents()
+    {
+        Cursor c = db.query(DATABASE_TABLE_SETLISTSONGS, null, null, null, null, null, null);
+        Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
     }
 
 
@@ -373,6 +537,16 @@ public class DBAdapter {
         }
         return c;
     }
+    public Cursor getAllRows_setlists_songs(int setlist) {
+        String whereClause = KEY_SETLISTSONGS_SETLIST_ID + " = " + setlist;
+        Cursor c =   db.query(true, DATABASE_TABLE_SETLISTSONGS, ALL_SETLISTSONGS_KEYS ,
+                whereClause, null, null, null , KEY_SETLISTSONGS_POSITION, null);
+        if (c != null) {
+            c.moveToFirst();
+        }
+        return c;
+    }
+
 
     // Get a specific row (by rowId)
     public Cursor getRow_song(String songName) {
@@ -501,6 +675,17 @@ public class DBAdapter {
 
         // Insert it into the database.
         return db.update(DATABASE_TABLE_SETLIST, newValues, where, null) != 0 ;
+    }
+    public boolean updateRow_setlists_songs(int setlistssongID, int setlistID,int songID, int position) {
+        String where = KEY_SETLISTSONGS_ID + "= "  + setlistssongID;
+
+        ContentValues newValues = new ContentValues();
+        newValues.put(KEY_SETLISTSONGS_SETLIST_ID, setlistID);
+        newValues.put(KEY_SETLISTSONGS_SONG_ID, songID);
+        newValues.put(KEY_SETLISTSONGS_POSITION, position);
+
+        // Insert it into the database.
+        return db.update(DATABASE_TABLE_SETLISTSONGS, newValues, where, null) != 0 ;
     }
 
 
@@ -868,6 +1053,56 @@ public class DBAdapter {
             initialValuesGigs.put(KEY_GIG_TIME, "09:00PM");
             initialValuesGigs.put(KEY_GIG_PAY, 175);
             db.insert(DATABASE_TABLE_GIG, null, initialValuesGigs);
+
+            ContentValues initialValuesSetlists = new ContentValues();
+            initialValuesSetlists.put(KEY_SETLIST_TITLE, "Mallrats first gig");
+            initialValuesSetlists.put(KEY_SETLIST_GIG_ID, 1);
+            initialValuesSetlists.put(KEY_SETLIST_NOTES, "This is going to be epic!!");
+            db.insert(DATABASE_TABLE_SETLIST, null, initialValuesSetlists);
+            initialValuesSetlists.put(KEY_SETLIST_TITLE, "Mallrats second gig");
+            initialValuesSetlists.put(KEY_SETLIST_GIG_ID, 3);
+            initialValuesSetlists.put(KEY_SETLIST_NOTES, "This is going to be more epic!!");
+            db.insert(DATABASE_TABLE_SETLIST, null, initialValuesSetlists);
+
+            //setlist song intitialization
+            ContentValues initialValuesSetlistSongs = new ContentValues();
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SETLIST_ID, 1);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SONG_ID, 1);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_POSITION, 1);
+            db.insert(DATABASE_TABLE_SETLISTSONGS, null, initialValuesSetlistSongs);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SETLIST_ID, 1);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SONG_ID, 2);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_POSITION, 2);
+            db.insert(DATABASE_TABLE_SETLISTSONGS, null, initialValuesSetlistSongs);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SETLIST_ID, 1);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SONG_ID, 3);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_POSITION, 3);
+            db.insert(DATABASE_TABLE_SETLISTSONGS, null, initialValuesSetlistSongs);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SETLIST_ID, 2);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SONG_ID, 5);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_POSITION, 1);
+            db.insert(DATABASE_TABLE_SETLISTSONGS, null, initialValuesSetlistSongs);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SETLIST_ID, 2);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SONG_ID, 6);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_POSITION, 2);
+            db.insert(DATABASE_TABLE_SETLISTSONGS, null, initialValuesSetlistSongs);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SETLIST_ID, 2);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SONG_ID, 7);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_POSITION, 3);
+            db.insert(DATABASE_TABLE_SETLISTSONGS, null, initialValuesSetlistSongs);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SETLIST_ID, 2);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SONG_ID, 9);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_POSITION, 4);
+            db.insert(DATABASE_TABLE_SETLISTSONGS, null, initialValuesSetlistSongs);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SETLIST_ID, 2);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SONG_ID, 10);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_POSITION, 5);
+            db.insert(DATABASE_TABLE_SETLISTSONGS, null, initialValuesSetlistSongs);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SETLIST_ID, 2);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_SONG_ID, 11);
+            initialValuesSetlistSongs.put(KEY_SETLISTSONGS_POSITION, 6);
+            db.insert(DATABASE_TABLE_SETLISTSONGS, null, initialValuesSetlistSongs);
+
         }
 
     }

@@ -55,6 +55,7 @@
         android:layout_below="@+id/et_song_add_artist"
         android:layout_alignLeft="@+id/et_song_add_artist"
         android:layout_alignStart="@+id/et_song_add_artist"
+        android:inputType="number"
         android:width="230dp"/>
 
     <TextView
@@ -163,6 +164,7 @@
         android:layout_below="@+id/et_song_add_genre"
         android:layout_alignLeft="@+id/et_song_add_genre"
         android:layout_alignStart="@+id/et_song_add_genre"
+        android:inputType="number"
         android:width="230dp"/>
 
     <EditText

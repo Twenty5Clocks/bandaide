@@ -13,6 +13,12 @@
     <string name="btn_submit">Submit</string>
     <string name="btn_delete">Delete</string>
     <string name="btn_edit">Edit</string>
+    <string name="btn_add_setlist_song">Add</string>
+    <string name="btn_remove_setlist_song">Remove</string>
+    <string name="btn_move_up">Move Up</string>
+    <string name="btn_move_down">Move Down</string>
+    <string name="btn_edit_songs">Edit Songs</string>
+    <string name="btn_view_songs">View Songs</string>
 
 
     <string name="txt_songname">Song Name</string>
