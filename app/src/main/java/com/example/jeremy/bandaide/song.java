@@ -9,7 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 public class song extends AppCompatActivity {
     DBAdapter songDB;
@@ -71,7 +71,6 @@ public class song extends AppCompatActivity {
     {
         Cursor cursor = songDB.getAllRows();
         //allow activity to manage lifetime of the cursor
-        //DEPRICATED
         startManagingCursor(cursor);
 
         //setup mapping for cursor to view fields

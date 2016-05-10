@@ -47,7 +47,6 @@ public class people_edit extends AppCompatActivity {
         String peopleEditEmail = et_edit_peopleEmail.getText().toString();
 
         songDB.updateRow_people(peopleEditFirstName, peopleEditLastName, peopleEditTitle, peopleEditPhone, peopleEditEmail);
-        //String title, String artist, int tempo, String genre, int year, String notes, String length, String timeSignature, String key
         Intent intent = new Intent(this, people.class);
         startActivity(intent);
     }

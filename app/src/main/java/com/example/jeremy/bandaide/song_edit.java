@@ -53,7 +53,6 @@ public class song_edit extends AppCompatActivity {
         String timeSigString = et_edit_timeSig.getText().toString();
         String keyString = et_edit_key.getText().toString();
         songDB.updateRow_song(songNameString, artistString, tempoInt, genreString, yearInt, notesString, lengthString, timeSigString, keyString);
-        //String title, String artist, int tempo, String genre, int year, String notes, String length, String timeSignature, String key
         Intent intent = new Intent(this, song.class);
         startActivity(intent);
     }

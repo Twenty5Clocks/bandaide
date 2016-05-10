@@ -41,7 +41,6 @@ public class song_add extends AppCompatActivity {
         String timeSigString = et_timeSig.getText().toString();
         String keyString = et_key.getText().toString();
         songDB.insertRow_Song(songNameString, artistString, tempoInt, genreString, yearInt, notesString, lengthString, timeSigString, keyString);
-        //String title, String artist, int tempo, String genre, int year, String notes, String length, String timeSignature, String key
         Intent intent = new Intent(this, song.class);
         startActivity(intent);
     }

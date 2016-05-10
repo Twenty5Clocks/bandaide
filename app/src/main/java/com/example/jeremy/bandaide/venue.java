@@ -71,7 +71,6 @@ public class venue extends AppCompatActivity {
     {
         Cursor cursor = songDB.getAllRows_venue();
         //allow activity to manage lifetime of the cursor
-        //DEPRICATED
         startManagingCursor(cursor);
 
         //setup mapping for cursor to view fields

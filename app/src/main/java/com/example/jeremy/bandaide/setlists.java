@@ -9,7 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 public class setlists extends AppCompatActivity {
     DBAdapter songDB;
@@ -26,9 +26,7 @@ public class setlists extends AppCompatActivity {
             private int mPosition;
 
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-                //TextView tv = (TextView) v.findViewById(R.id.item_gig_venue);
-                //String tvValue = tv.getText().toString();
-                //int selected = Integer.valueOf(tvValue);
+
                 int selected = (int)id;
                 Intent intent = new Intent(getApplicationContext(), setlists_view.class);
                 intent.putExtra("selSetlists" ,selected);
@@ -74,7 +72,7 @@ public class setlists extends AppCompatActivity {
     {
         Cursor cursor = songDB.getAllRows_setlists();
         //allow activity to manage lifetime of the cursor
-        //DEPRICATED
+
         startManagingCursor(cursor);
 
         //setup mapping for cursor to view fields

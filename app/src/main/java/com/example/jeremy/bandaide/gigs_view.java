@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+//import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -45,7 +45,6 @@ public class gigs_view extends AppCompatActivity {
     }
     public void onClick_delete(View v)
     {
-        //ToDo: the delete function for gig deletion is not working evey time.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.app_name);
         builder.setMessage("Delete this gig permanently?");

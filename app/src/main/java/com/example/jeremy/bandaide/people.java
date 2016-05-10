@@ -71,7 +71,6 @@ public class people extends AppCompatActivity {
     {
         Cursor cursor = songDB.getAllRows_people();
         //allow activity to manage lifetime of the cursor
-        //DEPRICATED
         startManagingCursor(cursor);
 
         //setup mapping for cursor to view fields

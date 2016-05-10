@@ -8,7 +8,7 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
+//import android.util.Log;
 import android.widget.Toast;
 
 
@@ -187,7 +187,7 @@ public class DBAdapter {
         initialValues.put(KEY_SONG_LENGTH, length);
         initialValues.put(KEY_SONG_TIMESIGNATURE, timeSignature);
         initialValues.put(KEY_SONG_KEY, key);
-        Log.v(TAG, "Inserted row in song table: " + title + ", "+ artist + ", "+ tempo + ", "+ genre + ", "+ year + ", "+ notes + ", "+ length + ", "+ timeSignature + ", "+ key);
+        //Log.v(TAG, "Inserted row in song table: " + title + ", "+ artist + ", "+ tempo + ", "+ genre + ", "+ year + ", "+ notes + ", "+ length + ", "+ timeSignature + ", "+ key);
 
         // Insert it into the database.
         return db.insert(DATABASE_TABLE_SONG, null, initialValues);
@@ -201,7 +201,7 @@ public class DBAdapter {
         initialValues.put(KEY_VENUE_STATE, state);
         initialValues.put(KEY_VENUE_ADDRESS, address);
         initialValues.put(KEY_VENUE_ZIPCODE, zip);
-        Log.v(TAG, "Inserted row in venue table: " + name + ", " + city + ", " + state + ", " + address + ", " + zip);
+        //Log.v(TAG, "Inserted row in venue table: " + name + ", " + city + ", " + state + ", " + address + ", " + zip);
 
         // Insert it into the database.
         return db.insert(DATABASE_TABLE_VENUE, null, initialValues);
@@ -215,7 +215,7 @@ public class DBAdapter {
         initialValues.put(KEY_PERSON_TITLE, title);
         initialValues.put(KEY_PERSON_PHONE, phone);
         initialValues.put(KEY_PERSON_EMAIL, email);
-        Log.v(TAG, "Inserted row in people table: " + title + ", " + firstName + ", " + lastName + ", " + title + ", " + phone + ", " + email);
+        //Log.v(TAG, "Inserted row in people table: " + title + ", " + firstName + ", " + lastName + ", " + title + ", " + phone + ", " + email);
 
         // Insert it into the database.
         return db.insert(DATABASE_TABLE_PERSON, null, initialValues);
@@ -228,7 +228,7 @@ public class DBAdapter {
         initialValues.put(KEY_GIG_DATE, date);
         initialValues.put(KEY_GIG_TIME, time);
         initialValues.put(KEY_GIG_PAY, pay);
-        Log.v(TAG, "Inserted row in gigs table: " + venue + ", " + date + ", " + time + ", " + pay);
+        //Log.v(TAG, "Inserted row in gigs table: " + venue + ", " + date + ", " + time + ", " + pay);
 
         // Insert it into the database.
         return db.insert(DATABASE_TABLE_GIG, null, initialValues);
@@ -240,7 +240,7 @@ public class DBAdapter {
         initialValues.put(KEY_SETLIST_TITLE, title);
         initialValues.put(KEY_SETLIST_GIG_ID, gigID);
         initialValues.put(KEY_SETLIST_NOTES, notes);
-        Log.v(TAG, "Inserted row in setlists table: " + title + ", " + gigID + ", " + notes);
+        //Log.v(TAG, "Inserted row in setlists table: " + title + ", " + gigID + ", " + notes);
 
         // Insert it into the database.
         return db.insert(DATABASE_TABLE_SETLIST, null, initialValues);
@@ -252,7 +252,7 @@ public class DBAdapter {
         initialValues.put(KEY_SETLISTSONGS_SETLIST_ID, setlist);
         initialValues.put(KEY_SETLISTSONGS_SONG_ID, song);
         initialValues.put(KEY_SETLISTSONGS_POSITION, position);
-        Log.v(TAG, "Inserted row in setlist_songs table: " + setlist + ", " + song + ", " + position);
+        //Log.v(TAG, "Inserted row in setlist_songs table: " + setlist + ", " + song + ", " + position);
 
         // Insert it into the database.
         return db.insert(DATABASE_TABLE_SETLISTSONGS, null, initialValues);
@@ -266,21 +266,21 @@ public class DBAdapter {
         }else {
             venue_id = 0;
         }
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
         cursor.close();
-        Log.v(TAG, "Got venue_ID: " + venue_id + " from " + venue);
+        //Log.v(TAG, "Got venue_ID: " + venue_id + " from " + venue);
         return venue_id;
     }
     public String getVenueName_VenueID(int venueID){
         Cursor cursor = db.rawQuery("SELECT " + KEY_VENUE_NAME + " FROM " + DATABASE_TABLE_VENUE + " WHERE " + KEY_VENUE_ID + "= " + venueID + ";", null);
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
         String venue_name;
         if (cursor.moveToFirst()) {
             venue_name = cursor.getString(cursor.getColumnIndex("name"));
         }else{
             venue_name = "nothing found";
         }
-        Log.v(TAG, "Got venue_name: " + venue_name + " from " + venueID);
+        //Log.v(TAG, "Got venue_name: " + venue_name + " from " + venueID);
 
 
         cursor.close();
@@ -288,23 +288,23 @@ public class DBAdapter {
     }
     public String getGigName_GigID(int gigID){
         Cursor cursor = db.rawQuery("SELECT " + KEY_GIG_VENUE_ID + " FROM " + DATABASE_TABLE_GIG + " WHERE " + KEY_GIG_ID + "= " + gigID + ";", null);
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
         int gig_id;
         if (cursor.moveToFirst()) {
             gig_id = cursor.getInt(cursor.getColumnIndex("venue_id"));
         }else{
             gig_id = 0;
         }
-        Log.v(TAG, "Got gig_id: " + gig_id + " from " + gigID);
+        //Log.v(TAG, "Got gig_id: " + gig_id + " from " + gigID);
         Cursor cursor2 = db.rawQuery("SELECT " + KEY_VENUE_NAME + " FROM " + DATABASE_TABLE_VENUE + " WHERE " + KEY_VENUE_ID + "= " + gig_id + ";", null);
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor2));
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor2));
         String venue_name;
         if (cursor2.moveToFirst()) {
             venue_name = cursor2.getString(cursor2.getColumnIndex("name"));
         }else{
             venue_name = "nothing found";
         }
-        Log.v(TAG, "Got venue_name: " + venue_name + " from " + gig_id);
+        //Log.v(TAG, "Got venue_name: " + venue_name + " from " + gig_id);
 
 
         cursor2.close();
@@ -313,14 +313,14 @@ public class DBAdapter {
     }
     public String getSongName_SongID(int songID){
         Cursor cursor = db.rawQuery("SELECT " + KEY_SONG_TITLE + " FROM " + DATABASE_TABLE_SONG + " WHERE " + KEY_SONG_ID + "= " + songID + ";", null);
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
         String song_name;
         if (cursor.moveToFirst()) {
             song_name = cursor.getString(cursor.getColumnIndex("title"));
         }else{
             song_name = "nothing found";
         }
-        Log.v(TAG, "Got song_name: " + song_name + " from " + songID);
+        //Log.v(TAG, "Got song_name: " + song_name + " from " + songID);
 
 
         cursor.close();
@@ -328,14 +328,14 @@ public class DBAdapter {
     }
     public String getSongArtist_SongID(int songID){
         Cursor cursor = db.rawQuery("SELECT " + KEY_SONG_ARTIST + " FROM " + DATABASE_TABLE_SONG + " WHERE " + KEY_SONG_ID + "= " + songID + ";", null);
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
         String song_artist;
         if (cursor.moveToFirst()) {
             song_artist = cursor.getString(cursor.getColumnIndex("artist"));
         }else{
             song_artist = "nothing found";
         }
-        Log.v(TAG, "Got song_artist: " + song_artist + " from " + songID);
+        //Log.v(TAG, "Got song_artist: " + song_artist + " from " + songID);
 
 
         cursor.close();
@@ -350,9 +350,9 @@ public class DBAdapter {
         }else {
             venue_id = 0;
         }
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
         cursor.close();
-        Log.v(TAG, "Got venue_ID: " + venue_id + " from gigID:" + gig);
+        //Log.v(TAG, "Got venue_ID: " + venue_id + " from gigID:" + gig);
         return venue_id;
     }
     public int getSongCount_SetlistID(int setlist){
@@ -364,9 +364,9 @@ public class DBAdapter {
         }else {
             song_count = 0;
         }
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
         cursor.close();
-        Log.v(TAG, "Got Song_Count: " + song_count + " from " + setlist);
+        //Log.v(TAG, "Got Song_Count: " + song_count + " from " + setlist);
         return song_count;
     }
     public int getSongHighest_SetlistID(int setlist){
@@ -387,8 +387,8 @@ public class DBAdapter {
                 KEY_SETLISTSONGS_SETLIST_ID + " = " + setlist + " AND " +
                 KEY_SETLISTSONGS_SONG_ID + " = " + song +";";
         Cursor cursor = db.rawQuery(where, null);
-        Log.v(TAG, where);
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        //Log.v(TAG, where);
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
 
         int pos;
         if (cursor.moveToFirst()) {
@@ -396,7 +396,7 @@ public class DBAdapter {
         }else {
             pos = 0;
         }
-        Log.v(TAG, "Got setlist_song_id: " + pos + " from " + setlist + ", song_id: " + song);
+        //Log.v(TAG, "Got setlist_song_id: " + pos + " from " + setlist + ", song_id: " + song);
         return pos;
     }
     public int getSetlistSongPos(int setlist, int position){
@@ -405,15 +405,15 @@ public class DBAdapter {
                 KEY_SETLISTSONGS_POSITION + " = " + position +";";
 
         Cursor cursor = db.rawQuery(where, null);
-        Log.v(TAG, where);
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        //Log.v(TAG, where);
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
         int pos;
         if (cursor.moveToFirst()) {
             pos = cursor.getInt(0);
         }else {
             pos = 0;
         }
-        Log.v(TAG, "Got setlist_song_pos: " + pos + " from " + setlist);
+        //Log.v(TAG, "Got setlist_song_pos: " + pos + " from " + setlist);
         return pos;
     }
     public int getSetlistSongSong(int setlist, int position){
@@ -422,15 +422,15 @@ public class DBAdapter {
                 KEY_SETLISTSONGS_POSITION + " = " + position +";";
 
         Cursor cursor = db.rawQuery(where, null);
-        Log.v(TAG, where);
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        //Log.v(TAG, where);
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
         int pos;
         if (cursor.moveToFirst()) {
             pos = cursor.getInt(0);
         }else {
             pos = 0;
         }
-        Log.v(TAG, "Got setlist_song_pos: " + pos + " from " + setlist);
+        //Log.v(TAG, "Got setlist_song_pos: " + pos + " from " + setlist);
         return pos;
     }
     public int setlistSongPos_id(int id)
@@ -446,24 +446,8 @@ public class DBAdapter {
         }
         return pos;
     }
-    public void upSongPosition(int setlist, int position){
-        int id = getSetlistSongID(setlist, position);
-        int song = getSetlistSongSong(setlist, position);
-        position--;
-        updateRow_setlists_songs(id, setlist, song, position);
 
-
-    }
-    public void downSongPosition(int setlist, int song){
-        int id = getSetlistSongID(setlist, song);
-        int pos = getSetlistSongPos(setlist, song);
-        pos++;
-        updateRow_setlists_songs(id,setlist,song,pos);
-
-
-    }
     public void removeSetlistSong(int setlistSongID){
-        //int id = getSetlistSongID(setlist, song);
 
         String where1 = KEY_SETLIST_ID + "= " +setlistSongID;
         db.delete(DATABASE_TABLE_SETLISTSONGS, where1, null);
@@ -475,12 +459,12 @@ public class DBAdapter {
     public void dbContents()
     {
         Cursor c = db.query(DATABASE_TABLE_SETLISTSONGS, null, null, null, null, null, null);
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
     }
 
 
 
-    // Delete a row from the database, by rowId (primary key)
+    // Delete a row from the database
     public boolean deleteRow_song(String songName) {
         String where = KEY_SONG_TITLE + "= \""  + songName + "\"";
         return db.delete(DATABASE_TABLE_SONG, where, null) != 0;
@@ -491,17 +475,17 @@ public class DBAdapter {
     }
     public boolean deleteRow_people(String name) {
         String where = KEY_PERSON_FIRSTNAME + "= \""  + name + "\"";
-        Log.v(TAG, "Deleting person row: " + where);
+        //Log.v(TAG, "Deleting person row: " + where);
         return db.delete(DATABASE_TABLE_PERSON, where, null) != 0;
     }
     public boolean deleteRow_gigs(int id) {
         String where = KEY_GIG_ID + "= "  + id;
-        Log.v(TAG, "Deleting gigs row: " + where);
+        //Log.v(TAG, "Deleting gigs row: " + where);
         return db.delete(DATABASE_TABLE_GIG, where, null) != 0;
     }
     public boolean deleteRow_setlists(int id) {
         String where = KEY_SETLIST_ID + "="  + id;
-        Log.v(TAG, "Deleting setlist row: " + where);
+        //Log.v(TAG, "Deleting setlist row: " + where);
         return db.delete(DATABASE_TABLE_SETLIST, where, null) != 0;
     }
 
@@ -573,7 +557,7 @@ public class DBAdapter {
     }
 
 
-    // Get a specific row (by rowId)
+    // Get a specific row
     public Cursor getRow_song(String songName) {
         String where = KEY_SONG_TITLE + "= \""  + songName + "\"";
         Cursor c =   db.query(DATABASE_TABLE_SONG, ALL_SONG_KEYS ,
@@ -581,8 +565,8 @@ public class DBAdapter {
         if (c != null) {
             c.moveToFirst();
         }
-        Log.v(TAG,"getRow_song:");
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
+        //Log.v(TAG,"getRow_song:");
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
         return c;
     }
     public Cursor getRow_venue(String venueName) {
@@ -592,8 +576,8 @@ public class DBAdapter {
         if (c != null) {
             c.moveToFirst();
         }
-        Log.v(TAG,"getRow_venue:");
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
+        //Log.v(TAG,"getRow_venue:");
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
         return c;
     }
     public Cursor getRow_person(String personName) {
@@ -603,8 +587,8 @@ public class DBAdapter {
         if (c != null) {
             c.moveToFirst();
         }
-        Log.v(TAG,"getRow_person:");
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
+        //Log.v(TAG,"getRow_person:");
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
         return c;
     }
     public Cursor getRow_gigs(int gigId) {
@@ -614,8 +598,8 @@ public class DBAdapter {
         if (c != null) {
             c.moveToFirst();
         }
-        Log.v(TAG,"getRow_gigs:");
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
+        //Log.v(TAG,"getRow_gigs:");
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
         return c;
     }
     public Cursor getRow_setlists(int setlistId) {
@@ -625,8 +609,8 @@ public class DBAdapter {
         if (c != null) {
             c.moveToFirst();
         }
-        Log.v(TAG,"getRow_setlists: setlistId = " + setlistId);
-        Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
+        //Log.v(TAG,"getRow_setlists: setlistId = " + setlistId);
+        //Log.v(TAG, DatabaseUtils.dumpCursorToString(c));
         return c;
     }
 
@@ -676,7 +660,6 @@ public class DBAdapter {
         // Insert it into the database.
         return db.update(DATABASE_TABLE_PERSON, newValues, where, null) != 0 ;
     }
-    //ToDo edit updateRow_gigs to allow for ID
     public boolean updateRow_gigs(int gigID,String venue, String date, String time, int pay) {
         String where = KEY_GIG_ID + "= "  + gigID;
         int venueInt = this.getVenueID_VenueName(venue);
@@ -739,8 +722,8 @@ public class DBAdapter {
 
         @Override
         public void onUpgrade(SQLiteDatabase _db, int oldVersion, int newVersion) {
-            Log.w(TAG, "Upgrading application's database from version " + oldVersion
-                    + " to " + newVersion + ", which will destroy all old data!");
+            //Log.w(TAG, "Upgrading application's database from version " + oldVersion
+            //        + " to " + newVersion + ", which will destroy all old data!");
 
             // Destroy old database:
             _db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_SONG);

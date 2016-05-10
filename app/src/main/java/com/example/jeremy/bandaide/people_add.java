@@ -35,7 +35,6 @@ public class people_add extends AppCompatActivity {
         String peopleEmailString = et_peopleEmail.getText().toString();
 
         songDB.insertRow_People(peopleFirstNameString, peopleLastNameString, peopleTitleString, peoplePhoneString, peopleEmailString);
-        //String title, String artist, int tempo, String genre, int year, String notes, String length, String timeSignature, String key
         Intent intent = new Intent(this, people.class);
         startActivity(intent);
     }

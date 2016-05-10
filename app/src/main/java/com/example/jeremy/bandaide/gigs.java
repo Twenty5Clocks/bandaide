@@ -3,7 +3,7 @@ package com.example.jeremy.bandaide;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+//import android.util.Log;
 import android.view.View;
 import android.database.Cursor;
 import android.widget.AdapterView;
@@ -27,9 +27,7 @@ public class gigs extends AppCompatActivity {
             private int mPosition;
 
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-                //TextView tv = (TextView) v.findViewById(R.id.item_gig_venue);
-                //String tvValue = tv.getText().toString();
-                //int selected = Integer.valueOf(tvValue);
+
                 int selected = (int)id;
                 Intent intent = new Intent(getApplicationContext(), gigs_view.class);
                 intent.putExtra("selGigs" ,selected);
@@ -74,8 +72,7 @@ public class gigs extends AppCompatActivity {
     public void populateListViewFromDB()
     {
         Cursor cursor = songDB.getAllRows_gigs();
-        //allow activity to manage lifetime of the cursor
-        //DEPRICATED
+
         startManagingCursor(cursor);
 
         //setup mapping for cursor to view fields

@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+//import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -45,10 +45,9 @@ public class gigs_edit extends AppCompatActivity {
         String dateString = et_edit_date.getText().toString();
         String timeString = et_edit_time.getText().toString();
         int payInt = Integer.parseInt(et_edit_pay.getText().toString());
-        Log.v(TAG, "gig update submitted:SelGigs:" + selGigs + "  name:" + venueNameString + " date:" + dateString + " time:" + timeString + " pay:" + payInt);
+        //Log.v(TAG, "gig update submitted:SelGigs:" + selGigs + "  name:" + venueNameString + " date:" + dateString + " time:" + timeString + " pay:" + payInt);
         //ToDo edit updateRow_gigs to allow for ID
         songDB.updateRow_gigs(selGigs, venueNameString, dateString, timeString, payInt);
-        //String title, String artist, int tempo, String genre, int year, String notes, String length, String timeSignature, String key
         Intent intent = new Intent(this, gigs.class);
         startActivity(intent);
     }

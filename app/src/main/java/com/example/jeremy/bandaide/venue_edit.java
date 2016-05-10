@@ -47,7 +47,6 @@ public class venue_edit extends AppCompatActivity {
         int venueEditZip = Integer.parseInt(et_edit_venueZip.getText().toString());
 
         songDB.updateRow_venue(venueEditName, venueEditAddress, venueEditCity, venueEditState, venueEditZip);
-        //String title, String artist, int tempo, String genre, int year, String notes, String length, String timeSignature, String key
         Intent intent = new Intent(this, venue.class);
         startActivity(intent);
     }

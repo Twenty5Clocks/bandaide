@@ -9,7 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 public class setlists_view_songs extends AppCompatActivity {
     DBAdapter songDB;
@@ -70,7 +70,6 @@ public class setlists_view_songs extends AppCompatActivity {
     {
         Cursor cursor = songDB.getAllRows_setlists_songs(selectedSetlist);
         //allow activity to manage lifetime of the cursor
-        //DEPRICATED
         startManagingCursor(cursor);
 
         //setup mapping for cursor to view fields
@@ -93,15 +92,9 @@ public class setlists_view_songs extends AppCompatActivity {
                     int songID = cursor.getInt(column);
                     String songName = songDB.getSongName_SongID(songID);
                     tv1.setText(songName);
-                    //ToDo make this listview populate both the title and artist (code below does not work...)
-
-                    //TextView tv2 = (TextView) view.findViewById(R.id.item_setlist_song_artist);
-                    //String songArtist = songDB.getSongArtist_SongID(songID);
-                    //tv2.setText(songArtist);
                     return true;
                 }
                 if (column == cursor.getColumnIndex(DBAdapter.KEY_SETLISTSONGS_POSITION)) {
-                    //ToDo make this listview populate both the title and artist (code below does not work...)
                     int artistID = cursor.getInt(column-1);
 
                     TextView tv2 = (TextView) view.findViewById(R.id.item_setlist_song_artist);

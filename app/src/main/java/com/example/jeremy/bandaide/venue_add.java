@@ -35,7 +35,6 @@ public class venue_add extends AppCompatActivity {
         int venueZipInt = Integer.parseInt(et_venueZip.getText().toString());
 
         songDB.insertRow_Venue(venueNameString, venueAddressString, venueCityString, venueStateString, venueZipInt);
-        //String title, String artist, int tempo, String genre, int year, String notes, String length, String timeSignature, String key
         Intent intent = new Intent(this, venue.class);
         startActivity(intent);
     }

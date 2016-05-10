@@ -10,7 +10,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
+//import android.widget.Toast;
 
 public class setlists_add extends AppCompatActivity {
     DBAdapter songDB;
@@ -55,11 +55,10 @@ public class setlists_add extends AppCompatActivity {
     public void onClick_button_submit(View v){
         EditText et_setlists_add_title = (EditText) findViewById(R.id.et_setlists_add_title);
 
-        //EditText et_setlists_add_gig = (EditText) findViewById(R.id.et_setlists_add_gig);
         EditText et_setlists_add_notes = (EditText) findViewById(R.id.et_setlists_add_notes);
 
         String setlistsTitleString = et_setlists_add_title.getText().toString();
-        int setlistsGigInt = selectedGig;//Integer.parseInt(et_setlists_add_gig.getText().toString());
+        int setlistsGigInt = selectedGig;
         String setlistsNotesString = et_setlists_add_notes.getText().toString();
 
         songDB.insertRow_Setlists(setlistsTitleString, setlistsGigInt, setlistsNotesString);
