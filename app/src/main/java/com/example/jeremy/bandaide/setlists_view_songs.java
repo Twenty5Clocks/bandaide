@@ -28,7 +28,7 @@ public class setlists_view_songs extends AppCompatActivity {
             private int mPosition;
 
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-                String selected = ((TextView) v.findViewById(R.id.item_title)).getText().toString();
+                String selected = ((TextView) v.findViewById(R.id.item_setlist_song_title)).getText().toString();
                 Intent intent = new Intent(getApplicationContext(), song_view.class);
                 intent.putExtra("selSong", selected);
                 startActivity(intent);
@@ -89,15 +89,25 @@ public class setlists_view_songs extends AppCompatActivity {
             @Override
             public boolean setViewValue(View view, Cursor cursor, int column) {
                 if (column == cursor.getColumnIndex(DBAdapter.KEY_SETLISTSONGS_SONG_ID)) {
-                    TextView tv = (TextView) view.findViewById(R.id.item_setlist_song_title);
+                    TextView tv1 = (TextView) view.findViewById(R.id.item_setlist_song_title);
                     int songID = cursor.getInt(column);
                     String songName = songDB.getSongName_SongID(songID);
-                    tv.setText(songName);
+                    tv1.setText(songName);
                     //ToDo make this listview populate both the title and artist (code below does not work...)
 
                     //TextView tv2 = (TextView) view.findViewById(R.id.item_setlist_song_artist);
                     //String songArtist = songDB.getSongArtist_SongID(songID);
                     //tv2.setText(songArtist);
+                    return true;
+                }
+                if (column == cursor.getColumnIndex(DBAdapter.KEY_SETLISTSONGS_POSITION)) {
+                    //ToDo make this listview populate both the title and artist (code below does not work...)
+                    int artistID = cursor.getInt(column-1);
+
+                    TextView tv2 = (TextView) view.findViewById(R.id.item_setlist_song_artist);
+
+                    String songArtist = songDB.getSongArtist_SongID(artistID);
+                    tv2.setText(songArtist);
                     return true;
                 }
                 return false;

@@ -62,28 +62,15 @@
             android:text="@string/btn_remove_setlist_song"
             android:onClick="onClick_removeSong"
             android:id="@+id/btn_setlists_songs_removeSongs"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_move_up"
-            android:id="@+id/btn_setlists_songs_moveUp"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_move_down"
-            android:id="@+id/btn_setlists_songs_moveDown"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/btn_main_menu"
-            android:id="@+id/btn_setlists_songs_mainMenu"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:onClick="dbTest"
-            android:id="@+id/button6"/>
+            android:text="@string/btn_main_menu"
+            android:onClick="onClick_mainMenu"
+            android:id="@+id/btn_setlists_songs_mainMenu"/>
+
+
 
     </LinearLayout>
 

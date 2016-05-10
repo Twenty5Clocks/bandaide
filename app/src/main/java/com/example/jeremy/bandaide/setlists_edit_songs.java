@@ -37,8 +37,8 @@ public class setlists_edit_songs extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 
                 selectedSong = (int) id;
-                Toast toast = Toast.makeText(getApplicationContext(), selectedSong + " song selected", Toast.LENGTH_SHORT);
-                toast.show();
+                //Toast toast = Toast.makeText(getApplicationContext(), selectedSong + " song selected", Toast.LENGTH_SHORT);
+                //toast.show();
 
             }
         });
@@ -48,8 +48,8 @@ public class setlists_edit_songs extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
 
                 selectedSetlistSong = (int) id;
-                Toast toast = Toast.makeText(getApplicationContext(), selectedSetlist + "= setlist, " + selectedSetlistSong + " song selected", Toast.LENGTH_SHORT);
-                toast.show();
+                //Toast toast = Toast.makeText(getApplicationContext(), selectedSetlist + "= setlist, " + selectedSetlistSong + " song selected", Toast.LENGTH_SHORT);
+                //toast.show();
             }
         });
 
@@ -157,12 +157,25 @@ public class setlists_edit_songs extends AppCompatActivity {
                     //tv2.setText(songArtist);
                     return true;
                 }
+                if (column == cursor2.getColumnIndex(DBAdapter.KEY_SETLISTSONGS_POSITION)) {
+                    //ToDo make this listview populate both the title and artist (code below does not work...)
+                    int artistID = cursor2.getInt(column-1);
+
+                    TextView tv2 = (TextView) view.findViewById(R.id.item_setlist_song_artist);
+
+                    String songArtist = songDB.getSongArtist_SongID(artistID);
+                    tv2.setText(songArtist);
+                    return true;
+                }
                 return false;
+
             }
 
 
 
+
         });
+
 
 
 

@@ -19,7 +19,7 @@ public class DBAdapter {
     /////////////////////////////////////////////////////////////////////
     // For logging:
     private static final String TAG = "DBAdapter";
-    public static final int DATABASE_VERSION = 25 ;
+    public static final int DATABASE_VERSION = 27 ;
 
 
     public static final String KEY_SONG_ID = "_id";
@@ -283,6 +283,31 @@ public class DBAdapter {
         Log.v(TAG, "Got venue_name: " + venue_name + " from " + venueID);
 
 
+        cursor.close();
+        return venue_name;
+    }
+    public String getGigName_GigID(int gigID){
+        Cursor cursor = db.rawQuery("SELECT " + KEY_GIG_VENUE_ID + " FROM " + DATABASE_TABLE_GIG + " WHERE " + KEY_GIG_ID + "= " + gigID + ";", null);
+        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor));
+        int gig_id;
+        if (cursor.moveToFirst()) {
+            gig_id = cursor.getInt(cursor.getColumnIndex("venue_id"));
+        }else{
+            gig_id = 0;
+        }
+        Log.v(TAG, "Got gig_id: " + gig_id + " from " + gigID);
+        Cursor cursor2 = db.rawQuery("SELECT " + KEY_VENUE_NAME + " FROM " + DATABASE_TABLE_VENUE + " WHERE " + KEY_VENUE_ID + "= " + gig_id + ";", null);
+        Log.v(TAG, DatabaseUtils.dumpCursorToString(cursor2));
+        String venue_name;
+        if (cursor2.moveToFirst()) {
+            venue_name = cursor2.getString(cursor2.getColumnIndex("name"));
+        }else{
+            venue_name = "nothing found";
+        }
+        Log.v(TAG, "Got venue_name: " + venue_name + " from " + gig_id);
+
+
+        cursor2.close();
         cursor.close();
         return venue_name;
     }
@@ -791,15 +816,15 @@ public class DBAdapter {
             initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
             initialValues.put(KEY_SONG_KEY, "A");
             db.insert(DATABASE_TABLE_SONG, null, initialValues);
-            initialValues.put(KEY_SONG_TITLE, "(How Much Is) That Doggie in the Window");
-            initialValues.put(KEY_SONG_ARTIST, "Patti Page");
-            initialValues.put(KEY_SONG_TEMPO, 100);
-            initialValues.put(KEY_SONG_GENRE, "Novelty");
-            initialValues.put(KEY_SONG_YEAR, 1953);
-            initialValues.put(KEY_SONG_NOTES, "Woof woof!");
-            initialValues.put(KEY_SONG_LENGTH, "2:58");
-            initialValues.put(KEY_SONG_TIMESIGNATURE, "3/4");
-            initialValues.put(KEY_SONG_KEY, "C");
+            initialValues.put(KEY_SONG_TITLE, "Little Red Corvette");
+            initialValues.put(KEY_SONG_ARTIST, "Prince");
+            initialValues.put(KEY_SONG_TEMPO, 113);
+            initialValues.put(KEY_SONG_GENRE, "New Wave");
+            initialValues.put(KEY_SONG_YEAR, 1983);
+            initialValues.put(KEY_SONG_NOTES, "I see purple!!");
+            initialValues.put(KEY_SONG_LENGTH, "5:03");
+            initialValues.put(KEY_SONG_TIMESIGNATURE, "4/4");
+            initialValues.put(KEY_SONG_KEY, "Eb");
             db.insert(DATABASE_TABLE_SONG, null, initialValues);
             initialValues.put(KEY_SONG_TITLE, "Uptown Funk");
             initialValues.put(KEY_SONG_ARTIST, "Mark Ronson");
